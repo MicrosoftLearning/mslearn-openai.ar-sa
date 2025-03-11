@@ -59,12 +59,12 @@ lab:
 
 لنبدأ باستكشاف بعض تقنيات هندسة التلقين في دردشة playground.
 
-1. في قسم **البيئة التجريبية**، حدد صفحة **دردشة**. تتكون صفحة بيئة **الدردشة** من صف من الأزرار ولوحتين رئيسيتين (والتي يمكن ترتيبها من اليمين إلى اليسار أفقيًا، أو من أعلى إلى أسفل عموديًا حسب دقة الشاشة لديك):
-    - **التكوين** - يُستخدم لتحديد التوزيع الخاص بك، وتحديد رسالة النظام، وتعيين معلمات للتفاعل مع توزيعك.
-    - **جلسة الدردشة** - تستخدم لإرسال رسائل الدردشة وعرض الاستجابات.
-2. في جزء **التوزيعات**، تأكد من تحديد توزيع نموذجك gpt-35-turbo-16k.
-1. راجع **رسالة النظام **الافتراضية، والتي يجب أن تكون *أنت مساعد الذكاء الاصطناعي الذي يساعد الأشخاص في العثور على المعلومات.*
-4. في جلسة**دردشة**، أرسل الاستعلام التالي:
+1. في الجزء الجانبي الأيسر، في قسم **البيئات**، حدد صفحة **دردشة**. تتكون صفحة بيئة **الدردشة** من صف من الأزرار ولوحتين رئيسيتين (والتي يمكن ترتيبها من اليمين إلى اليسار أفقيًا، أو من أعلى إلى أسفل عموديًا حسب دقة الشاشة لديك):
+    - **الإعداد** - يُستخدم لتحديد التوزيع الخاص بك، وتعريف رسالة النظام، وتعيين معلمات للتفاعل مع توزيعك.
+    - **محفوظات الدردشة** - تُستخدم لإرسال رسائل الدردشة وعرض الردود.
+2. في جزء **التوزيع**، تأكد من تحديد توزيع نموذج gpt-35-turbo-16k الخاص بك.
+1. راجع رسالة النظام الافتراضية الموجودة في مربع النص الموجود أسفل التوزيع المحدد مباشرةً، والتي يجب أن تكون *أنت مساعد الذكاء الاصطناعي الذي يساعد الأشخاص في العثور على المعلومات.*
+4. في **محفوظات الدردشة**، أرسل الاستعلام التالي:
 
     ```prompt
     What kind of article is this?
@@ -80,7 +80,7 @@ lab:
 
     توفر الاستجابة وصفاً للمقالة. ومع ذلك، افترض أنك تريد تنسيقاً أكثر تحديداً لتصنيف المقالات.
 
-5. في قسم **التكوين**، قم بتغيير رسالة النظام إلى `You are a news aggregator that categorizes news articles.`
+5. في قسم **إعداد**، قم بتغيير رسالة النظام إلى `You are a news aggregator that categorizes news articles.`
 
 6. في جزء رسالة النظام الجديدة، حدد زر **إضافة قسم**، ثم اختر **أمثلة**. ثم، أضف المثال التالي.
 
@@ -127,9 +127,9 @@ lab:
     Entertainment
     ```
 
-8. استخدم زر **تطبيق التغييرات** في أعلى قسم **التكوين** لحفظ التغييرات.
+8. استخدم زر **تطبيق التغييرات** أسفل مربع نص رسالة النظام في قسم **الإعداد** لحفظ تغييراتك.
 
-9. في قسم **جلسة الدردشة**، أعد إرسال المطالبة التالية:
+9. في قسم **محفوظات الدردشة**، أعد إرسال المطالبة التالية:
 
     ```prompt
     What kind of article is this?
@@ -147,7 +147,7 @@ lab:
 
 10. قم بتغيير رسالة النظام مرة أخرى إلى القالب الافتراضي، والذي يجب أن يكون `You are an AI assistant that helps people find information.` بدون أمثلة. ثم، قم بتطبيق التغييرات.
 
-11. في قسم **جلسة الدردشة**، أرسل المطالبة التالية:
+11. في قسم **محفوظات الدردشة**، أرسل المطالبة التالية:
 
     ```prompt
     # 1. Create a list of animals
@@ -359,7 +359,7 @@ lab:
     - Rescue name is Contoso 
     - It specializes in elephants, as well as zebras and giraffes 
     - Call for donations to be given at our website 
-    \n Include a list of the current animals we have at our rescue after the signature, in the form of a table. These animals include elephants, zebras, gorillas, lizards, and jackrabbits.
+    Include a list of the current animals we have at our rescue after the signature, in the form of a table. These animals include elephants, zebras, gorillas, lizards, and jackrabbits.
     ```
 
 1. لاحظ النتائج، وشاهد كيفية تغيير البريد الإلكتروني استناداً إلى الإرشادات الواضحة.
@@ -378,7 +378,7 @@ lab:
     - Rescue name is Contoso 
     - It specializes in elephants, as well as zebras and giraffes 
     - Call for donations to be given at our website 
-    \n Include a list of the current animals we have at our rescue after the signature, in the form of a table. These animals include elephants, zebras, gorillas, lizards, and jackrabbits.
+    Include a list of the current animals we have at our rescue after the signature, in the form of a table. These animals include elephants, zebras, gorillas, lizards, and jackrabbits.
     ```
 
 1. مراقبة المخرجات. وفي هذه المرة، من المحتمل أن ترى البريد الإلكتروني بتنسيق مماثل، ولكن بنبرة غير رسمية أكثر بكثير. من المحتمل أن ترى النكات مضمنة!
