@@ -1,6 +1,7 @@
 ---
 lab:
   title: تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI
+  status: stale
 ---
 
 # تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI
