@@ -1,6 +1,7 @@
 ---
 lab:
   title: تطوير التطبيقات باستخدام خدمة Azure OpenAI
+  status: new
 ---
 
 # تطوير التطبيقات باستخدام خدمة Azure OpenAI

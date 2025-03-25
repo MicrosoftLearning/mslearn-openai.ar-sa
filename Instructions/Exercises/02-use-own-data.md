@@ -1,6 +1,7 @@
 ---
 lab:
   title: تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI
+  status: new
 ---
 
 # تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI
