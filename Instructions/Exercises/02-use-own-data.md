@@ -74,15 +74,14 @@ lab:
 - نص يتضمن نموذج *لتحويل* النص في الكتيبات إلى رموز بحيث يمكن فهرسته بكفاءة للاستخدام في المطالبات الأساسية.
 - نموذج GPT الذي يمكن لتطبيقك استخدامه لإنشاء استجابات للمطالبات المستندة إلى بياناتك.
 
-
 ## توزيع النموذج
 
 بعد ذلك، ستقوم بنشر مورد نموذج Azure OpenAI من CLI. في بوابة Azure؛ حدد أيقونة **Cloud Shell** من شريط القوائم العلوي وتأكد من تعيين محطتك الطرفية على **Bash**. راجع هذا المثال واستبدل المتغيرات التالية بالقيم الخاصة بك:
 
 ```dotnetcli
 az cognitiveservices account deployment create \
-   -g *your resource group* \
-   -n *your Open AI resource* \
+   -g <your_resource_group> \
+   -n <your_OpenAI_resource> \
    --deployment-name text-embedding-ada-002 \
    --model-name text-embedding-ada-002 \
    --model-version "2"  \
@@ -91,24 +90,21 @@ az cognitiveservices account deployment create \
    --sku-capacity 5
 ```
 
-    > \* Sku-capacity is measured in thousands of tokens per minute. A rate limit of 5,000 tokens per minute is more than adequate to complete this exercise while leaving capacity for other people using the same subscription.
+> **ملاحظة**: يتم قياس سعة Sku بالآلاف من الرموز المميزة في الدقيقة. حد المعدل البالغ 5,000 رمز في الدقيقة يُعد كافيًا تمامًا لإكمال هذا التمرين، مع ترك سعة متاحة لمستخدمين آخرين ضمن نفس الاشتراك.
 
-
-بعد نشر نموذج تضمين النص، أنشئ نشر جديد للنموذج **gpt-35-turbo-16k** بالإعدادات التالية:
+بعد نشر نموذج تضمين النصوص، أنشئ عملية نشر جديدة لنموذج **gpt-4o** بالإعدادات التالية:
 
 ```dotnetcli
 az cognitiveservices account deployment create \
-   -g *your resource group* \
-   -n *your Open AI resource* \
-   --deployment-name gpt-35-turbo-16k \
-   --model-name gpt-35-turbo-16k \
-   --model-version "0125"  \
+   -g <your_resource_group> \
+   -n <your_OpenAI_resource> \
+   --deployment-name gpt-4o \
+   --model-name gpt-4o \
+   --model-version "2024-05-13" \
    --model-format OpenAI \
    --sku-name "Standard" \
    --sku-capacity 5
 ```
-
-    > \* Sku-capacity is measured in thousands of tokens per minute. A rate limit of 5,000 tokens per minute is more than adequate to complete this exercise while leaving capacity for other people using the same subscription.
 
 ## إنشاء فهرس
 
@@ -130,7 +126,7 @@ az cognitiveservices account deployment create \
     - **توزيع النموذج**: text-embedding-ada-002
     - **نوع المصادقة**: مفتاح API
     - **أقر بأن الاتصال بخدمة Azure OpenAI سيتكلف رسومًا إضافية على حسابي**: تحديد
-1. في الصفحة التالية، <u>لا</u> تحدد خيار تحويل الصور إلى رموز أو استخراج البيانات باستخدام مهارات الذكاء الاصطناعي.
+1. في الصفحة التالية، **لا** تحدد خيار تحويل الصور إلى رموز أو استخراج البيانات باستخدام مهارات الذكاء الاصطناعي.
 1. في الصفحة التالية، قم بتمكين الترتيب الدلالي وجدولة المفهرس للتشغيل مرة واحدة.
 1. في الصفحة الأخيرة، قم بتعيين **بادئة اسم الغرض** إلى `margies-index` ثم قم بإنشاء الفهرس.
 
@@ -141,7 +137,7 @@ az cognitiveservices account deployment create \
 > **تلميح**: إذا نسخت بالفعل مستودع **mslearn-openai**، فافتحه في تعليمة Visual Studio البرمجية. وإلا فاتبع هذه الخطوات لاستنساخه إلى بيئة تطويرك.
 
 1. ابدأ تشغيل Visual Studio Code.
-2. افتح لوحة (SHIFT+CTRL+P) وشغّل **Git: استنسخ الأمر ** لاستنساخ مستودع `https://github.com/MicrosoftLearning/mslearn-openai` إلى مجلد محلي (لا يُهم أي مجلد).
+2. افتح لوحة الأوامر (SHIFT+CTRL+P أو **View** > **Command Palette...**)، ثم نفّذ أمر **Git: Clone** لاستنساخ المستودع `https://github.com/MicrosoftLearning/mslearn-openai` إلى مجلد محلي (لا يهم أي مجلد تختاره).
 3. عند استنساخ المستودع، افتح المجلد في Visual Studio Code.
 
     > **ملاحظة**: إذا عرضت لك Visual Studio Code رسالة منبثقة لمطالبتك بالثقة في التعليمات البرمجية التي تفتحها، فانقر فوق **نعم، أثق في خيار الكُتاب** في النافذة المنبثقة.
@@ -159,24 +155,25 @@ az cognitiveservices account deployment create \
 
     **C#:**
 
-    ```
-    dotnet add package Azure.AI.OpenAI --version 1.0.0-beta.17
+    ```powershell
+    dotnet add package Azure.AI.OpenAI --version 2.1.0
+    dotnet add package Azure.Search.Documents --version 11.6.0
     ```
 
     **Python**:
 
-    ```
-    pip install openai==1.54.3
+    ```powershell
+    pip install openai==1.65.2
     ```
 
 3. في جزء **مستكشف**، في مجلد **CSharp** أو **Python**، افتح ملف التكوين للغة المفضلة لديك
 
     - **C#**: appsettings.json
     - **Python**: .env
-    
+
 4. تحديث قيم التكوين لتشمل:
     - **نقطة النهاية** و**مفتاح** من مورد Azure OpenAI الذي أنشأته (متوفر في صفحة **المفاتيح ونقطة النهاية** لمورد Azure OpenAI الخاص بك في مدخل Microsoft Azure)
-    - **اسم عملية النشر** الذي حددته لنشر نموذج gpt-35-turbo (يجب أن يكون `gpt-35-turbo-16k`.
+    - اسم **النشر** الذي حددته لنشر نموذج gpt-4o (يجب أن يكون `gpt-4o`).
     - نقطة النهاية لخدمة البحث الخاصة بك (قيمة عنوان **URL** في صفحة النظرة العامة لمورد البحث الخاص بك في مدخل Azure).
     - **مفتاح** لمورد البحث لديك (متوفر في صفحة **المفاتيح** لمورد البحث في مدخل Azure - يمكنك استخدام أي من مفاتيح المسؤول)
     - اسم فهرس البحث (الذي يجب أن يكون `margies-index`).
@@ -186,55 +183,62 @@ az cognitiveservices account deployment create \
 
 أنت الآن جاهز لاستخدام Azure OpenAI SDK لاستهلاك نموذجك الموزع.
 
-1. في جزء **مستكشف**، في المجلد **CSharp** أو **Python**، افتح ملف التعليمات البرمجية للغتك المفضلة، واستبدل التعليق ***تكوين مصدر البيانات الخاص بك*** باستخدام التعليمة البرمجية لإضافة مكتبة Azure OpenAI SDK:
+1. في جزء **Explorer**، داخل مجلد **CSharp** أو **Python**، افتح ملف الشيفرة للغة التي تفضلها، واستبدل التعليق ***تكوين مصدر بياناناتك*** باستخدام تعليمة برمجية تُعرّف الفهرس كمصدر بيانات لإكمال المحادثة:
 
     **C#**: ownData.cs
 
     ```csharp
     // Configure your data source
-    AzureSearchChatExtensionConfiguration ownDataConfig = new()
+    // Extension methods to use data sources with options are subject to SDK surface changes. Suppress the warning to acknowledge this and use the subject-to-change AddDataSource method.
+    #pragma warning disable AOAI001
+    
+    ChatCompletionOptions chatCompletionsOptions = new ChatCompletionOptions()
     {
-            SearchEndpoint = new Uri(azureSearchEndpoint),
-            Authentication = new OnYourDataApiKeyAuthenticationOptions(azureSearchKey),
-            IndexName = azureSearchIndex
+        MaxOutputTokenCount = 600,
+        Temperature = 0.9f,
     };
+    
+    chatCompletionsOptions.AddDataSource(new AzureSearchChatDataSource()
+    {
+        Endpoint = new Uri(azureSearchEndpoint),
+        IndexName = azureSearchIndex,
+        Authentication = DataSourceAuthentication.FromApiKey(azureSearchKey),
+    });
     ```
 
     **Python**: ownData.py
 
     ```python
-# Configure your data source
-text = input('\nEnter a question:\n')
-
-completion = client.chat.completions.create(
-    model=deployment,
-    messages=[
-        {
-            "role": "user",
-            "content": text,
-        },
-    ],
-    extra_body={
-        "data_sources":[
+    # Configure your data source
+    text = input('\nEnter a question:\n')
+    
+    completion = client.chat.completions.create(
+        model=deployment,
+        messages=[
             {
-                "type": "azure_search",
-                "parameters": {
-                    "endpoint": os.environ["AZURE_SEARCH_ENDPOINT"],
-                    "index_name": os.environ["AZURE_SEARCH_INDEX"],
-                    "authentication": {
-                        "type": "api_key",
-                        "key": os.environ["AZURE_SEARCH_KEY"],
+                "role": "user",
+                "content": text,
+            },
+        ],
+        extra_body={
+            "data_sources":[
+                {
+                    "type": "azure_search",
+                    "parameters": {
+                        "endpoint": os.environ["AZURE_SEARCH_ENDPOINT"],
+                        "index_name": os.environ["AZURE_SEARCH_INDEX"],
+                        "authentication": {
+                            "type": "api_key",
+                            "key": os.environ["AZURE_SEARCH_KEY"],
+                        }
                     }
                 }
-            }
-        ],
-    }
-)
+            ],
+        }
+    )
     ```
 
-2. راجع بقية التعليمة البرمجية، مع ملاحظة استخدام *الملحقات* في نص الطلب المستخدم لتوفير معلومات عن إعدادات مصدر البيانات.
-
-3. احفظ التغييرات في ملف التعليمة البرمجية.
+1. احفظ التغييرات في ملف التعليمة البرمجية.
 
 ## تشغيل التطبيق الخاص بك
 
