@@ -45,9 +45,9 @@ lab:
 > **ملاحظة**: أثناء استخدام بوابة Azure AI Foundry، قد يتم عرض مربعات رسائل تقترح عليك تنفيذ مهام. يمكنك إغلاق هذه الخطوات واتباع الخطوات الواردة في هذا التمرين.
 
 1. في بوابة Azure، في صفحة **نظرة عامة** لمورد Azure OpenAI الخاص بك، مرّر لأسفل إلى قسم **بدء الاستخدام** وحدد الزر للانتقال إلى **بوابة AI Foundry** (المعروفة سابقًا باسم AI Studio).
-1. في بوابة Azure AI Foundry، في الجزء الموجود على اليسار، حدد صفحة **عمليات النشر** واعرض عمليات نشر النموذج الحالية لديك. إذا لم يكن لديك واحدة بالفعل، فعليك إنشاء توزيع جديد لنموذج **gpt-35-turbo-16k** بالإعدادات التالية:
+1. في بوابة Azure AI Foundry، في الجزء الموجود على اليسار، حدد صفحة **عمليات النشر** واعرض عمليات نشر النموذج الحالية لديك. إذا لم يكن لديك واحد بالفعل، أنشئ نشرًا جديدًا لنموذج **gpt-4o** باستخدام الإعدادات التالية:
     - **اسم التوزيع**: *اسم فريد من اختيارك*
-    - **النموذج**: gpt-35-turbo-16k *(إذا لم يكن نموذج 16k متوفرًا، فاختر gpt-35-turbo)*
+    - **النموذج**: gpt-4
     - **إصدار النموذج**: *استخدام الإصدار الافتراضي*
     - **نوع التوزيع**: قياسي
     - **حد معدل الرموز المميزة في الدقيقة**: 5K\*
@@ -67,7 +67,7 @@ lab:
 1. في مساحة **رسالة النظام**، قم بتعيين رسالة النظام إلى `You are a programming assistant helping write code` وقم بتطبيق التغييرات.
 1. في **جلسة دردشة**، أرسل الاستعلام التالي:
 
-    ```
+    ```prompt
     Write a function in python that takes a character and a string as input, and returns how many times the character appears in the string
     ```
 
@@ -79,7 +79,7 @@ lab:
 
 1. بعد ذلك، دعونا نستكشف استخدام الذكاء الاصطناعي لفهم التعليمة البرمجية. أرسل المطالبة التالية كرسالة المستخدم.
 
-    ```
+    ```prompt
     What does the following function do?  
     ---  
     def multiply(a, b):  
@@ -105,11 +105,11 @@ lab:
 
     يجب أن يصف النموذج ما تفعله الدالة، وهو ضرب رقمين معًا باستخدام تكرار حلقي.
 
-7. أرسل المطالبة `Can you simplify the function?`.
+1. أرسل المطالبة `Can you simplify the function?`.
 
     يجب أن يكتب النموذج إصدارًا أبسط من الدالة.
 
-8. إرسال المطالبة: `Add some comments to the function.`
+1. إرسال المطالبة: `Add some comments to the function.`
 
     يضيف النموذج تعليقات إلى التعليمة البرمجية.
 
@@ -120,7 +120,7 @@ lab:
 > **تلميح**: إذا نسخت بالفعل مستودع **mslearn-openai**، فافتحه في تعليمة Visual Studio البرمجية. وإلا فاتبع هذه الخطوات لاستنساخه إلى بيئة تطويرك.
 
 1. ابدأ تشغيل Visual Studio Code.
-2. افتح لوحة (SHIFT+CTRL+P) وشغّل **Git: استنسخ الأمر ** لاستنساخ مستودع `https://github.com/MicrosoftLearning/mslearn-openai` إلى مجلد محلي (لا يُهم أي مجلد).
+2. افتح عرض لوحة الأوامر (SHIFT+CTRL+P أو **عرض لوحة الأوامر** > **Command Palette**)، ثم نفّذ أمر **Git: Clone** لاستنساخ المستودع `https://github.com/MicrosoftLearning/mslearn-openai` إلى مجلد محلي (لا يهم أي مجلد تختاره).
 3. عند استنساخ المستودع، افتح المجلد في Visual Studio Code.
 
     > **ملاحظة**: إذا عرضت لك Visual Studio Code رسالة منبثقة لمطالبتك بالثقة في التعليمات البرمجية التي تفتحها، فانقر فوق **نعم، أثق في خيار الكُتاب** في النافذة المنبثقة.
@@ -138,21 +138,21 @@ lab:
 
     **C#:**
 
-    ```
-    dotnet add package Azure.AI.OpenAI --version 1.0.0-beta.14
+    ```powershell
+    dotnet add package Azure.AI.OpenAI --version 2.1.0
     ```
 
     **Python**:
 
-    ```
-    pip install openai==1.55.3
+    ```powershell
+    pip install openai==1.65.2
     ```
 
 3. في جزء **مستكشف**، في مجلد **CSharp** أو **Python**، افتح ملف التكوين للغة المفضلة لديك
 
     - **C#**: appsettings.json
     - **Python**: .env
-    
+
 4. تحديث قيم التكوين لتشمل:
     - **نقطة النهاية** و**مفتاح** من مورد Azure OpenAI الذي أنشأته (متوفر في صفحة **المفاتيح ونقطة النهاية** لمورد Azure OpenAI الخاص بك في مدخل Microsoft Azure)
     - **اسم عملية النشر** الذي حددته لنشر النموذج الخاص بك (متوفر في صفحة **عمليات النشر** في بوابة Azure AI Foundry).
@@ -168,23 +168,19 @@ lab:
 
     ```csharp
     // Format and send the request to the model
-    var chatCompletionsOptions = new ChatCompletionsOptions()
+    var chatCompletionsOptions = new ChatCompletionOptions()
     {
-        Messages =
-        {
-            new ChatRequestSystemMessage(systemPrompt),
-            new ChatRequestUserMessage(userPrompt)
-        },
         Temperature = 0.7f,
-        MaxTokens = 1000,
-        DeploymentName = oaiDeploymentName
+        MaxOutputTokenCount = 800
     };
-
+    
     // Get response from Azure OpenAI
-    Response<ChatCompletions> response = await client.GetChatCompletionsAsync(chatCompletionsOptions);
-
-    ChatCompletions completions = response.Value;
-    string completion = completions.Choices[0].Message.Content;
+    ChatCompletion response = await chatClient.CompleteChatAsync(
+        [
+            new SystemChatMessage(systemPrompt),
+            new UserChatMessage(userPrompt),
+        ],
+        chatCompletionsOptions);
     ```
 
     **Python**: code-generation.py
@@ -205,7 +201,7 @@ lab:
     )
     ```
 
-4. احفظ التغييرات في ملف التعليمة البرمجية.
+1. احفظ التغييرات في ملف التعليمة البرمجية.
 
 ## شغّل التطبيق
 
@@ -249,7 +245,7 @@ lab:
     - **Python**: يتم إجراء إصلاحات على السطرين 18 و31
 
     يمكن تشغيل تطبيق Go Fish في **sample-code** إذا قمت باستبدال الأسطر التي تحتوي على أخطاء بالاستجابة من Azure OpenAI. إذا قمت بتشغيله دون الإصلاحات، فلن يعمل بشكل صحيح.
-    
+
     > **ملاحظة**: من الأهمية بمكان ملاحظة أنه على الرغم من تصحيح التعليمات البرمجية لتطبيق Go Fish هذا لبعض بناء الجملة، إلا أنه ليس تمثيلاً دقيقًا تمامًا للعبة. إذا تمعنت بدقة، ستجد مشاكل تتعلق بعدم التحقق مما إذا كانت المجموعة فارغة عند سحب البطاقات، وعدم إزالة الأزواج من يد اللاعب عندما يحصل على زوج، وبعض الأخطاء الأخرى التي تتطلب فهم ألعاب البطاقات لتحقيقها. يُعدَّ هذا مثالاً رائعًا لكيفية مساعدة نماذج الذكاء الاصطناعي التوليدي المفيدة في إنشاء التعليمات البرمجية، ولكن لا يمكن الوثوق بصحتها ويجب التحقق منها من قِبل المطور.
 
     إذا كنت ترغب في رؤية الاستجابة الكاملة من Azure OpenAI، يمكنك تعيين متغيّر **printFullResponse** إلى `True`، وإعادة تشغيل التطبيق.
