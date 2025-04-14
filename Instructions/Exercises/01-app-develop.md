@@ -17,7 +17,7 @@ lab:
 إذا لم تقم بالاستنساخ بالفعل، يجب عليك استنساخ مستودع التعليمات البرمجية لهذه الدورة التدريبية:
 
 1. ابدأ تشغيل Visual Studio Code.
-2. افتح لوحة (SHIFT+CTRL+P) وشغّل **Git: استنسخ الأمر ** لاستنساخ مستودع `https://github.com/MicrosoftLearning/mslearn-openai` إلى مجلد محلي (لا يُهم أي مجلد).
+2. افتح عرض لوحة الأوامر (SHIFT+CTRL+P أو **عرض لوحة الأوامر** > **Command Palette**)، ثم نفّذ أمر **Git: Clone** لاستنساخ المستودع `https://github.com/MicrosoftLearning/mslearn-openai` إلى مجلد محلي (لا يهم أي مجلد تختاره).
 3. عند استنساخ المستودع، افتح المجلد في تعليمة Visual Studio البرمجية.
 4. انتظر حتى تثبيت ملفات إضافية لدعم مشاريع التعليمات البرمجية C# في المستودع.
 
@@ -47,7 +47,7 @@ lab:
 
     > \* موارد Azure OpenAI مقيدة بالحصص النسبية الإقليمية. تتضمن المناطق المدرجة الحصة النسبية الافتراضية لنوع (أنواع) النموذج المستخدمة في هذا التمرين. يؤدي اختيار منطقة عشوائيًا إلى تقليل مخاطر وصول منطقة واحدة إلى حد الحصة النسبية في السيناريوهات التي تشارك فيها اشتراكًا مع مستخدمين آخرين. في حالة الوصول إلى حد الحصة النسبية لاحقًا في التمرين، هناك احتمال أنك قد تحتاج إلى إنشاء مورد آخر في منطقة مختلفة.
 
-3. يُرجى الانتظار لاكتمال التوزيع. ثم انتقل إلى مورد Azure OpenAI الموزّع في مدخل Microsoft Azure.
+1. يُرجى الانتظار لاكتمال التوزيع. ثم انتقل إلى مورد Azure OpenAI الموزّع في مدخل Microsoft Azure.
 
 ## توزيع النموذج
 
@@ -55,20 +55,17 @@ lab:
 
 ```dotnetcli
 az cognitiveservices account deployment create \
-   -g *Your resource group* \
-   -n *Name of your OpenAI service* \
-   --deployment-name gpt-35-turbo \
-   --model-name gpt-35-turbo \
-   --model-version 0125  \
+   -g <your_resource_group> \
+   -n <your_OpenAI_service> \
+   --deployment-name gpt-4o \
+   --model-name gpt-4o \
+   --model-version 2024-05-13 \
    --model-format OpenAI \
    --sku-name "Standard" \
    --sku-capacity 5
 ```
 
-    > \* Sku-capacity is measured in thousands of tokens per minute. A rate limit of 5,000 tokens per minute is more than adequate to complete this exercise while leaving capacity for other people using the same subscription.
-
-> [!NOTE]
-> إذا رأيت تحذيرات حول عدم دعم إطار عمل net7.0، فيمكنك تجاهلها في هذا التمرين.
+> **ملاحظة**: يتم قياس سعة Sku بالآلاف من الرموز المميزة في الدقيقة. حد المعدل البالغ 5,000 رمز في الدقيقة يُعد كافيًا تمامًا لإكمال هذا التمرين، مع ترك سعة متاحة لمستخدمين آخرين ضمن نفس الاشتراك.
 
 ## تكوين تطبيقك
 
@@ -79,21 +76,21 @@ az cognitiveservices account deployment create \
 
     **C#:**
 
-    ```
-    dotnet add package Azure.AI.OpenAI --version 2.0.0
+    ```powershell
+    dotnet add package Azure.AI.OpenAI --version 2.1.0
     ```
 
     **Python**:
 
-    ```
-    pip install openai==1.54.3
+    ```powershell
+    pip install openai==1.65.2
     ```
 
 3. في جزء **مستكشف**، في مجلد **CSharp** أو **Python**، افتح ملف التكوين للغة المفضلة لديك
 
     - **C#**: appsettings.json
     - **Python**: .env
-    
+
 4. تحديث قيم التكوين لتشمل:
     - **نقطة النهاية** و**مفتاح** من مورد Azure OpenAI الذي أنشأته (متوفر في صفحة **المفاتيح ونقطة النهاية** لمورد Azure OpenAI الخاص بك في مدخل Microsoft Azure)
     - **اسم عملية النشر** الذي حددته لنشر نموذجك.
@@ -138,7 +135,7 @@ az cognitiveservices account deployment create \
         azure_endpoint = azure_oai_endpoint, 
         api_key=azure_oai_key,  
         api_version="2024-02-15-preview"
-        )
+    )
     ```
 
 3. في الوظيفة التي تستدعي نموذج Azure OpenAI، ضمن التعليق ***الحصول على رد من Azure OpenAI***، أضف التعليمة البرمجية للتنسيق وأرسل الطلب إلى النموذج.
@@ -271,28 +268,112 @@ az cognitiveservices account deployment create \
     ```
 
 1. مراقبة المخرجات. وفي هذه المرة، من المحتمل أن ترى البريد الإلكتروني بتنسيق مماثل، ولكن بنبرة غير رسمية أكثر بكثير. من المحتمل أن ترى النكات مضمنة!
-1. للتكرار النهائي، نحن نبتعد عن إنشاء البريد الإلكتروني واستكشاف *السياق الأساسي*. هنا يمكنك توفير رسالة نظام بسيطة، وتغيير التطبيق لتوفير السياق الأساسي كبداية لمطالبة المستخدم. وبعد ذلك، سيُلحق التطبيق إدخال المستخدم، واستخراج المعلومات من السياق الأساسي للرد على مطالبة المستخدم.
+
+## استخدم السياق الأساسي واحتفظ بسجل المحادثة.
+
+1. في التكرار الأخير، ننتقل بعيدًا عن توليد البريد الإلكتروني ونستكشف *السياق الأساسي* والحفاظ على سجل المحادثة. هنا يمكنك توفير رسالة نظام بسيطة، وتغيير التطبيق لتوفير السياق الأساسي كبداية لمطالبة المستخدم. وبعد ذلك، سيُلحق التطبيق إدخال المستخدم، واستخراج المعلومات من السياق الأساسي للرد على مطالبة المستخدم.
 1. افتح الملف `grounding.txt` واقرأ بإيجاز السياق الأساسي الذي ستقوم بإدراجه.
 1. في تطبيقك مباشرة بعد ***تنسيق التعليق وإرسال الطلب إلى النموذج*** وقبل أي تعليمات برمجية موجودة، أضف القصاصة البرمجية التالية لقراءة النص من `grounding.txt` لزيادة مطالبة المستخدم بالسياق الأساسي.
 
     **C#**: Program.cs
 
     ```csharp
-    // Format and send the request to the model
+    // Initialize messages list
     Console.WriteLine("\nAdding grounding context from grounding.txt");
     string groundingText = System.IO.File.ReadAllText("grounding.txt");
-    userMessage = groundingText + userMessage;
+    var messagesList = new List<ChatMessage>()
+    {
+        new UserChatMessage(groundingText),
+    };
+    ```
+
+    **Python**: application.py
+
+    ```python
+    # Initialize messages array
+    print("\nAdding grounding context from grounding.txt")
+    grounding_text = open(file="grounding.txt", encoding="utf8").read().strip()
+    messages_array = [{"role": "user", "content": grounding_text}]
+    ```
+
+1. ضمن التعليق ***أضف تعليمة برمجية لإرسال الطلب...***، استبدل كل التعليمة البرمجية من التعليق **حتى** نهاية الحلقة يالتعليمة البرمجية التالية ثم احفظ الملف. التعليمة البرمجية هي نفسها في الغالب، ولكن الآن تستخدم صفيف الرسائل لإرسال الطلب إلى النموذج.
+
+    **C#**: Program.cs
+   
+    ```csharp
+    // Format and send the request to the model
+    messagesList.Add(new SystemChatMessage(systemMessage));
+    messagesList.Add(new UserChatMessage(userMessage));
+    GetResponseFromOpenAI(messagesList);
     ```
 
     **Python**: application.py
 
     ```python
     # Format and send the request to the model
-    print("\nAdding grounding context from grounding.txt")
-    grounding_text = open(file="grounding.txt", encoding="utf8").read().strip()
-    user_message = grounding_text + user_message
+    messages_array.append({"role": "system", "content": system_text})
+    messages_array.append({"role": "user", "content": user_text})
+    await call_openai_model(messages=messages_array, 
+        model=azure_oai_deployment, 
+        client=client
+    )
     ```
 
+1. ضمن التعليق ***تعريف الدالة التي ستجلب الاستجابة من نقطة نهاية Azure OpenAI***، استبدل تعريف الدالة بالتعليمة البرمجية التالية لاستخدام قائمة سجل المحادثة عند استدعاء الدالة `GetResponseFromOpenAI` للغة C# أو `call_openai_model` للغة Python.
+
+    **C#**: Program.cs
+   
+    ```csharp
+    // Define the function that gets the response from Azure OpenAI endpoint
+    private static void GetResponseFromOpenAI(List<ChatMessage> messagesList)
+    ```
+
+    **Python**: application.py
+
+    ```python
+    # Define the function that will get the response from Azure OpenAI endpoint
+    async def call_openai_model(messages, model, client):
+    ```
+    
+1. وأخيرا، استبدل جميع التعليمات البرمجية ضمن ***الحصول على استجابة من Azure OpenAI***. التعليمة البرمجية هي نفسها في الغالب، ولكن الآن تستخدم صفيف الرسائل لتخزين محفوظات المحادثات.
+
+    **C#**: Program.cs
+   
+    ```csharp
+    // Get response from Azure OpenAI
+    ChatCompletionOptions chatCompletionOptions = new ChatCompletionOptions()
+    {
+        Temperature = 0.7f,
+        MaxOutputTokenCount = 800
+    };
+
+    ChatCompletion completion = chatClient.CompleteChat(
+        messagesList,
+        chatCompletionOptions
+    );
+
+    Console.WriteLine($"{completion.Role}: {completion.Content[0].Text}");
+    messagesList.Add(new AssistantChatMessage(completion.Content[0].Text));
+    ```
+
+    **Python**: application.py
+
+    ```python
+    # Get response from Azure OpenAI
+    print("\nSending request to Azure OpenAI model...\n")
+
+    # Call the Azure OpenAI model
+    response = await client.chat.completions.create(
+        model=model,
+        messages=messages,
+        temperature=0.7,
+        max_tokens=800
+    )   
+
+    print("Response:\n" + response.choices[0].message.content + "\n")
+    messages.append({"role": "assistant", "content": response.choices[0].message.content})
+    ```
+    
 1. احفظ الملف وأعد تشغيل التطبيق.
 1. أدخل المطالبات التالية (مع استمرار إدخال **رسالة النظام** وحفظها في `system.txt`).
 
@@ -308,8 +389,18 @@ az cognitiveservices account deployment create \
     What animal is the favorite of children at Contoso?
     ```
 
-> **تلميح**: إذا كنت ترغب في رؤية الاستجابة الكاملة من Azure OpenAI، يمكنك تعيين متغيّر **printFullResponse** إلى `True`، وإعادة تشغيل التطبيق.
+   لاحظ أن النموذج يستخدم معلومات النص المرجعي للإجابة على سؤالك.
 
+1. دون تغيير رسالة النظام، أدخل المطالبة التالية كرسالة من المستخدم:
+
+    **رسالة المستخدم:**
+
+    ```prompt
+    How can they interact with it at Contoso?
+    ```
+
+    لاحظ أن النموذج يتعرف على "هم" على أنهم الأطفال، و"هو" على أنه الحيوان المفضل لديهم، وذلك لأنه يمتلك الآن إمكانية الوصول إلى سؤالك السابق ضمن سجل المحادثة.
+   
 ## تنظيف
 
 عند الانتهاء من مورد Azure OpenAI، تذكر حذف التوزيع أو المورد بأكمله في **مدخل Microsoft Azure** في `https://portal.azure.com`.
