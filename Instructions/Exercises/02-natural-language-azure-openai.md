@@ -45,9 +45,9 @@ lab:
 > **ملاحظة**: أثناء استخدام بوابة Azure AI Foundry، قد يتم عرض مربعات رسائل تقترح عليك تنفيذ مهام. يمكنك إغلاق هذه الخطوات واتباع الخطوات الواردة في هذا التمرين.
 
 1. في بوابة Azure، في صفحة **نظرة عامة** لمورد Azure OpenAI الخاص بك، مرّر لأسفل إلى قسم **بدء الاستخدام** وحدد الزر للانتقال إلى **بوابة AI Foundry** (المعروفة سابقًا باسم AI Studio).
-1. في بوابة Azure AI Foundry، في الجزء الموجود على اليسار، حدد صفحة **عمليات النشر** واعرض عمليات نشر النموذج الحالية لديك. إذا لم يكن لديك واحدة بالفعل، فعليك إنشاء توزيع جديد لنموذج **gpt-35-turbo-16k** بالإعدادات التالية:
+1. في بوابة Azure AI Foundry، في الجزء الموجود على اليسار، حدد صفحة **عمليات النشر** واعرض عمليات نشر النموذج الحالية لديك. إذا لم يكن لديك واحد بالفعل، أنشئ نشرًا جديدًا لنموذج **gpt-4o** باستخدام الإعدادات التالية:
     - **اسم التوزيع**: *اسم فريد من اختيارك*
-    - **النموذج**: gpt-35-turbo-16k *(إذا لم يكن نموذج 16k متوفرًا، فاختر gpt-35-turbo)*
+    - **النموذج**: gpt-4
     - **إصدار النموذج**: *استخدام الإصدار الافتراضي*
     - **نوع التوزيع**: قياسي
     - **حد معدل الرموز المميزة في الدقيقة**: 5K\*
@@ -63,7 +63,7 @@ lab:
 > **تلميح**: إذا نسخت بالفعل مستودع **mslearn-openai**، فافتحه في تعليمة Visual Studio البرمجية. وإلا فاتبع هذه الخطوات لاستنساخه إلى بيئة تطويرك.
 
 1. ابدأ تشغيل Visual Studio Code.
-2. افتح لوحة (SHIFT+CTRL+P) وشغّل **Git: استنسخ الأمر ** لاستنساخ مستودع `https://github.com/MicrosoftLearning/mslearn-openai` إلى مجلد محلي (لا يُهم أي مجلد).
+2. افتح عرض لوحة الأوامر (SHIFT+CTRL+P أو **عرض لوحة الأوامر** > **Command Palette**)، ثم نفّذ أمر **Git: Clone** لاستنساخ المستودع `https://github.com/MicrosoftLearning/mslearn-openai` إلى مجلد محلي (لا يهم أي مجلد تختاره).
 3. عند استنساخ المستودع، افتح المجلد في Visual Studio Code.
 
     > **ملاحظة**: إذا عرضت لك Visual Studio Code رسالة منبثقة لمطالبتك بالثقة في التعليمات البرمجية التي تفتحها، فانقر فوق **نعم، أثق في خيار الكُتاب** في النافذة المنبثقة.
@@ -81,21 +81,21 @@ lab:
 
     **C#:**
 
-    ```
-    dotnet add package Azure.AI.OpenAI --version 1.0.0-beta.14
+    ```powershell
+    dotnet add package Azure.AI.OpenAI --version 2.1.0
     ```
 
     **Python**:
 
-    ```
-    pip install openai==1.55.3
+    ```powershell
+    pip install openai==1.65.2
     ```
 
 3. في جزء **مستكشف**، في مجلد **CSharp** أو **Python**، افتح ملف التكوين للغة المفضلة لديك
 
     - **C#**: appsettings.json
     - **Python**: .env
-    
+
 4. تحديث قيم التكوين لتشمل:
     - **نقطة النهاية** و**مفتاح** من مورد Azure OpenAI الذي أنشأته (متوفر في صفحة **المفاتيح ونقطة النهاية** لمورد Azure OpenAI الخاص بك في مدخل Microsoft Azure)
     - **اسم عملية النشر** الذي حددته لنشر النموذج الخاص بك (متوفر في صفحة **عمليات النشر** في بوابة Azure AI Foundry).
@@ -110,12 +110,13 @@ lab:
     **C#**: Program.cs
 
     ```csharp
-    // Add Azure OpenAI package
+    // Add Azure OpenAI packages
     using Azure.AI.OpenAI;
+    using OpenAI.Chat;
     ```
-    
+
     **Python**: test-openai-model.py
-    
+
     ```python
     # Add Azure OpenAI package
     from openai import AzureOpenAI
@@ -127,7 +128,8 @@ lab:
 
     ```csharp
     // Initialize the Azure OpenAI client
-    OpenAIClient client = new OpenAIClient(new Uri(oaiEndpoint), new AzureKeyCredential(oaiKey));
+    AzureOpenAIClient azureClient = new (new Uri(oaiEndpoint), new ApiKeyCredential(oaiKey));
+    ChatClient chatClient = azureClient.GetChatClient(oaiDeploymentName);
     
     // System message to provide context to the model
     string systemMessage = "I am a hiking enthusiast named Forest who helps people discover hikes in their area. If no area is specified, I will default to near Rainier National Park. I will then provide three suggestions for nearby hikes that vary in length. I will also share an interesting fact about the local nature on the hikes when making a recommendation.";
@@ -151,31 +153,28 @@ lab:
         """
     ```
 
-1. استبدل التعليق ***إضافة تعليمة برمجية لإرسال الطلب...*** بالتعليمات البرمجية اللازمة لإنشاء الطلب؛ لتحديد المعلمات المختلفة للنموذج الخاص بك مثل `messages` و `temperature`.
+1. استبدل التعليق ***إضافة تعليمة برمجية لإرسال الطلب...*** بالتعليمات البرمجية اللازمة لإنشاء الطلب؛ لتحديد المعلمات المختلفة للنموذج الخاص بك مثل `Temperature` و `MaxOutputTokenCount`.
 
     **C#**: Program.cs
 
     ```csharp
     // Add code to send request...
-    // Build completion options object
-    ChatCompletionsOptions chatCompletionsOptions = new ChatCompletionsOptions()
+    // Get response from Azure OpenAI
+    ChatCompletionOptions chatCompletionOptions = new ChatCompletionOptions()
     {
-        Messages =
-        {
-            new ChatRequestSystemMessage(systemMessage),
-            new ChatRequestUserMessage(inputText),
-        },
-        MaxTokens = 400,
         Temperature = 0.7f,
-        DeploymentName = oaiDeploymentName
+        MaxOutputTokenCount = 800
     };
 
-    // Send request to Azure OpenAI model
-    ChatCompletions response = client.GetChatCompletions(chatCompletionsOptions);
+    ChatCompletion completion = chatClient.CompleteChat(
+        [
+            new SystemChatMessage(systemMessage),
+            new UserChatMessage(inputText)
+        ],
+        chatCompletionOptions
+    );
 
-    // Print the response
-    string completion = response.Choices[0].Message.Content;
-    Console.WriteLine("Response: " + completion + "\n");
+    Console.WriteLine($"{completion.Role}: {completion.Content[0].Text}");
     ```
 
     **Python**: test-openai-model.py
@@ -232,9 +231,9 @@ lab:
 
     ```csharp
     // Initialize messages list
-    var messagesList = new List<ChatRequestMessage>()
+    var messagesList = new List<ChatMessage>()
     {
-        new ChatRequestSystemMessage(systemMessage),
+        new SystemChatMessage(systemMessage),
     };
     ```
 
@@ -252,31 +251,26 @@ lab:
     ```csharp
     // Add code to send request...
     // Build completion options object
-    messagesList.Add(new ChatRequestUserMessage(inputText));
+    messagesList.Add(new UserChatMessage(inputText));
 
-    ChatCompletionsOptions chatCompletionsOptions = new ChatCompletionsOptions()
+    ChatCompletionOptions chatCompletionOptions = new ChatCompletionOptions()
     {
-        MaxTokens = 1200,
         Temperature = 0.7f,
-        DeploymentName = oaiDeploymentName
+        MaxOutputTokenCount = 800
     };
 
-    // Add messages to the completion options
-    foreach (ChatRequestMessage chatMessage in messagesList)
-    {
-        chatCompletionsOptions.Messages.Add(chatMessage);
-    }
-
-    // Send request to Azure OpenAI model
-    ChatCompletions response = client.GetChatCompletions(chatCompletionsOptions);
+    ChatCompletion completion = chatClient.CompleteChat(
+        messagesList,
+        chatCompletionOptions
+    );
 
     // Return the response
-    string completion = response.Choices[0].Message.Content;
+    string response = completion.Content[0].Text;
 
     // Add generated text to messages list
-    messagesList.Add(new ChatRequestAssistantMessage(completion));
+    messagesList.Add(new AssistantChatMessage(response));
 
-    Console.WriteLine("Response: " + completion + "\n");
+    Console.WriteLine("Response: " + response + "\n");
     ```
 
     **Python**: test-openai-model.py
@@ -310,7 +304,7 @@ lab:
 1. لاحظ الإخراج، ثم استخدم المطالبة `How difficult is the second hike you suggested?`.
 1. من المحتمل أن تحصل على استجابة حول الرفع الثاني الذي اقترحه النموذج، والذي يوفر محادثة أكثر واقعية. يمكنك طرح أسئلة متابعة إضافية تشير إلى الإجابات السابقة، وفي كل مرة توفر المحفوظات سياقاً للنموذج للإجابة عليه.
 
-    > **تلميح**: يجري تعيين عدد الرموز المميزة فقط إلى 1200، لذلك إذا استمرت المحادثة لفترة طويلة جدًا، فسينفد التطبيق من الرموز المميزة المتوفرة، ما يؤدي إلى مطالبة غير مكتملة. في استخدامات الإنتاج، سيساعد تقييد طول المحفوظات على أحدث المدخلات والاستجابات في التحكم في عدد الرموز المميزة المطلوبة.
+    > **تلميح**: تم ضبط عدد رموز الإخراج على 800 فقط، لذا إذا استمرت المحادثة لفترة طويلة، ستنفد الرموز المتاحة للتطبيق، مما يؤدي إلى مطالبة غير مكتملة. في استخدامات الإنتاج، سيساعد تقييد طول المحفوظات على أحدث المدخلات والاستجابات في التحكم في عدد الرموز المميزة المطلوبة.
 
 ## تنظيف
 

@@ -45,9 +45,9 @@ lab:
 > **ملاحظة**: أثناء استخدام بوابة Azure AI Foundry، قد يتم عرض مربعات رسائل تقترح عليك تنفيذ مهام. يمكنك إغلاق هذه الخطوات واتباع الخطوات الواردة في هذا التمرين.
 
 1. في بوابة Azure، في صفحة **نظرة عامة** لمورد Azure OpenAI الخاص بك، مرّر لأسفل إلى قسم **بدء الاستخدام** وحدد الزر للانتقال إلى **بوابة AI Foundry** (المعروفة سابقًا باسم AI Studio).
-1. في بوابة Azure AI Foundry، في الجزء الموجود على اليسار، حدد صفحة **عمليات النشر** واعرض عمليات نشر النموذج الحالية لديك. إذا لم يكن لديك واحدة بالفعل، فعليك إنشاء توزيع جديد لنموذج **gpt-35-turbo-16k** بالإعدادات التالية:
+1. في بوابة Azure AI Foundry، في الجزء الموجود على اليسار، حدد صفحة **عمليات النشر** واعرض عمليات نشر النموذج الحالية لديك. إذا لم يكن لديك واحد بالفعل، أنشئ نشرًا جديدًا لنموذج **gpt-4o** باستخدام الإعدادات التالية:
     - **اسم التوزيع**: *اسم فريد من اختيارك*
-    - **النموذج**: gpt-35-turbo-16k *(إذا لم يكن نموذج 16k متوفرًا، فاختر gpt-35-turbo)*
+    - **النموذج**: gpt-4
     - **إصدار النموذج**: *استخدام الإصدار الافتراضي*
     - **نوع التوزيع**: قياسي
     - **حد معدل الرموز المميزة في الدقيقة**: 5K\*
@@ -63,9 +63,9 @@ lab:
 1. في الجزء الجانبي الأيسر، في قسم **البيئات**، حدد صفحة **دردشة**. تتكون صفحة بيئة **الدردشة** من صف من الأزرار ولوحتين رئيسيتين (والتي يمكن ترتيبها من اليمين إلى اليسار أفقيًا، أو من أعلى إلى أسفل عموديًا حسب دقة الشاشة لديك):
     - **الإعداد** - يُستخدم لتحديد التوزيع الخاص بك، وتعريف رسالة النظام، وتعيين معلمات للتفاعل مع توزيعك.
     - **محفوظات الدردشة** - تُستخدم لإرسال رسائل الدردشة وعرض الردود.
-2. في جزء **التوزيع**، تأكد من تحديد توزيع نموذج gpt-35-turbo-16k الخاص بك.
+1. في جزء **عمليات التوزيع**، تأكّد من تحديد نشر نموذج gpt-4o الخاص بك.
 1. راجع رسالة النظام الافتراضية الموجودة في مربع النص الموجود أسفل التوزيع المحدد مباشرةً، والتي يجب أن تكون *أنت مساعد الذكاء الاصطناعي الذي يساعد الأشخاص في العثور على المعلومات.*
-4. في **محفوظات الدردشة**، أرسل الاستعلام التالي:
+1. في **محفوظات الدردشة**، أرسل الاستعلام التالي:
 
     ```prompt
     What kind of article is this?
@@ -81,12 +81,12 @@ lab:
 
     توفر الاستجابة وصفاً للمقالة. ومع ذلك، افترض أنك تريد تنسيقاً أكثر تحديداً لتصنيف المقالات.
 
-5. في قسم **إعداد**، قم بتغيير رسالة النظام إلى `You are a news aggregator that categorizes news articles.`
+1. في قسم **إعداد**، قم بتغيير رسالة النظام إلى `You are a news aggregator that categorizes news articles.`
 
-6. في جزء رسالة النظام الجديدة، حدد زر **إضافة قسم**، ثم اختر **أمثلة**. ثم، أضف المثال التالي.
+1. في جزء رسالة النظام الجديدة، حدد زر **إضافة قسم**، ثم اختر **أمثلة**. ثم، أضف المثال التالي.
 
     **المستخدم:**
-    
+
     ```prompt
     What kind of article is this?
     ---
@@ -98,17 +98,17 @@ lab:
     
     The Chicago Cyclones' two hits came in the 2nd and the 5th innings but were unable to get the runner home to score.
     ```
-    
+
     **Assistant:**
-    
+
     ```prompt
     Sports
       ```
 
-7. أضف مثالاً آخر باستخدام النص التالي.
+1. أضف مثالاً آخر باستخدام النص التالي.
 
     **المستخدم:**
-    
+
     ```prompt
     Categorize this article:
     ---
@@ -121,16 +121,16 @@ lab:
     
     From Robin Kline's history-making win to a full performance by none other than Casey Jensen herself, don't miss tomorrows rerun of all the festivities.
     ```
-    
+
     **Assistant:**
-    
+
     ```prompt
     Entertainment
     ```
 
-8. استخدم زر **تطبيق التغييرات** أسفل مربع نص رسالة النظام في قسم **الإعداد** لحفظ تغييراتك.
+1. استخدم زر **تطبيق التغييرات** أسفل مربع نص رسالة النظام في قسم **الإعداد** لحفظ تغييراتك.
 
-9. في قسم **محفوظات الدردشة**، أعد إرسال المطالبة التالية:
+1. في قسم **محفوظات الدردشة**، أعد إرسال المطالبة التالية:
 
     ```prompt
     What kind of article is this?
@@ -146,9 +146,9 @@ lab:
 
     يؤدي الجمع بين رسالة نظام أكثر تحديداً وبعض الأمثلة على الاستعلامات والاستجابات المتوقعة إلى تنسيق متسق للنتائج.
 
-10. قم بتغيير رسالة النظام مرة أخرى إلى القالب الافتراضي، والذي يجب أن يكون `You are an AI assistant that helps people find information.` بدون أمثلة. ثم، قم بتطبيق التغييرات.
+1. قم بتغيير رسالة النظام مرة أخرى إلى القالب الافتراضي، والذي يجب أن يكون `You are an AI assistant that helps people find information.` بدون أمثلة. ثم، قم بتطبيق التغييرات.
 
-11. في قسم **محفوظات الدردشة**، أرسل المطالبة التالية:
+1. في قسم **محفوظات الدردشة**، أرسل المطالبة التالية:
 
     ```prompt
     # 1. Create a list of animals
@@ -158,10 +158,10 @@ lab:
 
     من المحتمل أن يستجيب النموذج بإجابة لتلبية المطالبة، وتقسيمه إلى قائمة مرقمّة. هذه استجابة مناسبة، ولكن افترض أن ما أردته بالفعل هو أن يكتب النموذج برنامج Python الذي ينفذ المهام التي وصفتها؟
 
-12. قم بتغيير رسالة النظام إلى `You are a coding assistant helping write python code.` وطبّق التغييرات.
-13. أعد إرسال المطالبة التالية إلى النموذج:
+1. قم بتغيير رسالة النظام إلى `You are a coding assistant helping write python code.` وطبّق التغييرات.
+1. أعد إرسال المطالبة التالية إلى النموذج:
 
-    ```
+    ```prompt
     # 1. Create a list of animals
     # 2. Create a list of whimsical names for those animals
     # 3. Combine them randomly into a list of 25 animal and name pairs
@@ -176,7 +176,7 @@ lab:
 > **تلميح**: إذا نسخت بالفعل مستودع **mslearn-openai**، فافتحه في تعليمة Visual Studio البرمجية. وإلا فاتبع هذه الخطوات لاستنساخه إلى بيئة تطويرك.
 
 1. ابدأ تشغيل Visual Studio Code.
-2. افتح لوحة (SHIFT+CTRL+P) وشغّل **Git: استنسخ الأمر ** لاستنساخ مستودع `https://github.com/MicrosoftLearning/mslearn-openai` إلى مجلد محلي (لا يُهم أي مجلد).
+2. افتح لوحة الأوامر (SHIFT+CTRL+P أو **View** > **Command Palette...**)، ثم نفّذ أمر **Git: Clone** لاستنساخ المستودع `https://github.com/MicrosoftLearning/mslearn-openai` إلى مجلد محلي (لا يهم أي مجلد تختاره).
 3. عند استنساخ المستودع، افتح المجلد في Visual Studio Code.
 
     > **ملاحظة**: إذا عرضت لك Visual Studio Code رسالة منبثقة لمطالبتك بالثقة في التعليمات البرمجية التي تفتحها، فانقر فوق **نعم، أثق في خيار الكُتاب** في النافذة المنبثقة.
@@ -194,21 +194,21 @@ lab:
 
     **C#:**
 
-    ```
-    dotnet add package Azure.AI.OpenAI --version 1.0.0-beta.14
+    ```powershell
+    dotnet add package Azure.AI.OpenAI --version 2.1.0
     ```
 
     **Python**:
 
-    ```
-    pip install openai==1.55.3
+    ```powershell
+    pip install openai==1.65.2
     ```
 
 3. في جزء **مستكشف**، في مجلد **CSharp** أو **Python**، افتح ملف التكوين للغة المفضلة لديك
 
     - **C#**: appsettings.json
     - **Python**: .env
-    
+
 4. تحديث قيم التكوين لتشمل:
     - **نقطة النهاية** و**مفتاح** من مورد Azure OpenAI الذي أنشأته (متوفر في صفحة **المفاتيح ونقطة النهاية** لمورد Azure OpenAI الخاص بك في مدخل Microsoft Azure)
     - **اسم عملية النشر** الذي حددته لنشر النموذج الخاص بك (متوفر في صفحة **عمليات النشر** في بوابة Azure AI Foundry).
@@ -225,6 +225,7 @@ lab:
     ```csharp
     // Add Azure OpenAI package
     using Azure.AI.OpenAI;
+    using OpenAI.Chat;
     ```
 
     **Python**: prompt-engineering.py
@@ -240,7 +241,8 @@ lab:
 
     ```csharp
     // Configure the Azure OpenAI client
-    OpenAIClient client = new OpenAIClient(new Uri(oaiEndpoint), new AzureKeyCredential(oaiKey));
+    AzureOpenAIClient azureClient = new (new Uri(oaiEndpoint), new ApiKeyCredential(oaiKey));
+    ChatClient chatClient = azureClient.GetChatClient(oaiDeploymentName);
     ```
 
     **Python**: prompt-engineering.py
@@ -260,20 +262,19 @@ lab:
 
     ```csharp
     // Format and send the request to the model
-    var chatCompletionsOptions = new ChatCompletionsOptions()
+    var chatCompletionsOptions = new ChatCompletionOptions()
     {
-        Messages =
-        {
-            new ChatRequestSystemMessage(systemMessage),
-            new ChatRequestUserMessage(userMessage)
-        },
         Temperature = 0.7f,
-        MaxTokens = 800,
-        DeploymentName = oaiDeploymentName
+        MaxOutputTokenCount = 800
     };
     
     // Get response from Azure OpenAI
-    Response<ChatCompletions> response = await client.GetChatCompletionsAsync(chatCompletionsOptions);
+    ChatCompletion response = await chatClient.CompleteChatAsync(
+        [
+            new SystemChatMessage(systemMessage),
+            new UserChatMessage(userMessage),
+        ],
+        chatCompletionsOptions);
     ```
 
     **Python**: prompt-engineering.py
