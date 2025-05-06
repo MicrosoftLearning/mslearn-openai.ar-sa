@@ -33,15 +33,13 @@ lab:
     - **اشتراك**: *حدد اشتراك Azure الذي جرت الموافقة عليه للوصول إلى خدمة Azure OpenAI*
     - **مجموعة الموارد**: *اختيار مجموعة موارد أو إنشاءها*
     - **المنطقة**: *إجراء اختيار **عشوائي** من أي من المناطق التالية*\*
-        - شرق كندا
         - شرق الولايات المتحدة
         - East US 2
-        - وسط فرنسا
-        - شرق اليابان
         - وسط شمال الولايات المتحدة
+        - South Central US
         - منطقة السويد الوسطى
-        - شمال سويسرا
-        - جنوب المملكة المتحدة
+        - غرب الولايات المتحدة
+        - غرب الولايات المتحدة الأمريكية 3
     - **الاسم**: *اسم فريد من اختيارك*
     - **مستوى التسعير**: قياسي S0
 
@@ -51,19 +49,25 @@ lab:
 
 ## توزيع النموذج
 
-بعد ذلك، ستقوم بنشر مورد نموذج Azure OpenAI من CLI. راجع هذا المثال واستبدل المتغيرات التالية بالقيم الخاصة بك من الأعلى:
+بعد ذلك، ستقوم بتوزيع مورد نموذج Azure OpenAI من Cloud Shell.
 
-```dotnetcli
-az cognitiveservices account deployment create \
-   -g <your_resource_group> \
-   -n <your_OpenAI_service> \
-   --deployment-name gpt-4o \
-   --model-name gpt-4o \
-   --model-version 2024-05-13 \
-   --model-format OpenAI \
-   --sku-name "Standard" \
-   --sku-capacity 5
-```
+1. استخدم الزر **[\>_]** الموجود على يمين شريط البحث أعلى الصفحة لإنشاء Cloud Shell جديد في بوابة Azure، وتحديد بيئة ***Bash***. يوفّر Cloud Shell واجهة سطر أوامر في جزء أسفل بوابة Azure.
+
+    > **ملاحظة**: إذا كنت قد أنشأت مسبقًا Cloud Shell يستخدم بيئة *PowerShell*، فبدّل إلى ***Bash***.
+
+1. راجع هذا المثال واستبدل المتغيرات التالية بالقيم الخاصة بك من الأعلى:
+
+    ```dotnetcli
+    az cognitiveservices account deployment create \
+       -g <your_resource_group> \
+       -n <your_OpenAI_service> \
+       --deployment-name gpt-4o \
+       --model-name gpt-4o \
+       --model-version 2024-05-13 \
+       --model-format OpenAI \
+       --sku-name "Standard" \
+       --sku-capacity 5
+    ```
 
 > **ملاحظة**: يتم قياس سعة Sku بالآلاف من الرموز المميزة في الدقيقة. حد المعدل البالغ 5,000 رمز في الدقيقة يُعد كافيًا تمامًا لإكمال هذا التمرين، مع ترك سعة متاحة لمستخدمين آخرين ضمن نفس الاشتراك.
 
@@ -245,7 +249,7 @@ az cognitiveservices account deployment create \
     - Rescue name is Contoso 
     - It specializes in elephants, as well as zebras and giraffes 
     - Call for donations to be given at our website 
-    \n Include a list of the current animals we have at our rescue after the signature, in the form of a table. These animals include elephants, zebras, gorillas, lizards, and jackrabbits.
+    Include a list of the current animals we have at our rescue after the signature, in the form of a table. These animals include elephants, zebras, gorillas, lizards, and jackrabbits.
     ```
 
 1. لاحظ النتائج، وشاهد كيفية تغيير البريد الإلكتروني استناداً إلى الإرشادات الواضحة.
@@ -264,7 +268,7 @@ az cognitiveservices account deployment create \
     - Rescue name is Contoso 
     - It specializes in elephants, as well as zebras and giraffes 
     - Call for donations to be given at our website 
-    \n Include a list of the current animals we have at our rescue after the signature, in the form of a table. These animals include elephants, zebras, gorillas, lizards, and jackrabbits.
+    Include a list of the current animals we have at our rescue after the signature, in the form of a table. These animals include elephants, zebras, gorillas, lizards, and jackrabbits.
     ```
 
 1. مراقبة المخرجات. وفي هذه المرة، من المحتمل أن ترى البريد الإلكتروني بتنسيق مماثل، ولكن بنبرة غير رسمية أكثر بكثير. من المحتمل أن ترى النكات مضمنة!
