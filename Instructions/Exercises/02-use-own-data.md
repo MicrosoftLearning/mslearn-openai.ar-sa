@@ -1,262 +1,355 @@
----
-lab:
-  title: تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI
-  status: new
----
+<div class="Box-sc-g0xbh4-0 eoaCFS js-snippet-clipboard-copy-unpositioned undefined" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><div dir="rtl"><markdown-accessiblity-table data-catalyst=""><table>
+  <thead>
+  <tr>
+  <th>lab</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td><div dir="rtl"><table>
+  <thead>
+  <tr>
+  <th>title</th>
+  <th>status</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td><div dir="rtl">تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI</div></td>
+  <td><div dir="rtl">new</div></td>
+  </tr>
+  </tbody>
+</table>
+</div></td>
+  </tr>
+  </tbody>
+</table></markdown-accessiblity-table>
 
-# تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI
-
-تمكنك خدمة Azure OpenAI من استخدام بياناتك الخاصة مع ذكاء LLM الأساسي. يمكنك تقييد النموذج لاستخدام بياناتك فقط للمواضيع ذات الصلة، أو مزجها مع النتائج من النموذج المدرب مسبقاً.
-
-في سيناريو هذا التمرين، ستؤدي دور مطور برامج يعمل لدى Margie's Travel Agency. ستكتشف كيفية استخدام بحث الذكاء الاصطناعي في Azure لفهرسة بياناتك واستخدامها مع Azure OpenAI لزيادة المطالبات.
-
-سيستغرق هذا التدريب حوالي **30** دقيقة.
-
-## تزويد موارد Azure
-
-لإكمال هذا التدريب، ستحتاج إلى:
-
-- مورد Azure OpenAI.
-- مورد بحث الذكاء الاصطناعي في Azure
-- مورد حساب تخزين Azure.
-
-1. سجّل الدخول إلى **Azure portal** من `https://portal.azure.com`.
-2. إنشاء مورد **Azure OpenAI** بالإعدادات التالية:
-    - **اشتراك**: *حدد اشتراك Azure الذي جرت الموافقة عليه للوصول إلى خدمة Azure OpenAI*
-    - **مجموعة الموارد**: *اختيار مجموعة موارد أو إنشاءها*
-    - **المنطقة**: *إجراء اختيار **عشوائي** من أي من المناطق التالية*\*
-        - شرق الولايات المتحدة
-        - East US 2
-        - وسط شمال الولايات المتحدة
-        - South Central US
-        - منطقة السويد الوسطى
-        - غرب الولايات المتحدة
-        - غرب الولايات المتحدة الأمريكية 3
-    - **الاسم**: *اسم فريد من اختيارك*
-    - **مستوى التسعير**: قياسي S0
-
-    > \* موارد Azure OpenAI مقيدة بالحصص النسبية الإقليمية. تتضمن المناطق المدرجة الحصة النسبية الافتراضية لنوع (أنواع) النموذج المستخدمة في هذا التمرين. يؤدي اختيار منطقة عشوائيًا إلى تقليل مخاطر وصول منطقة واحدة إلى حد الحصة النسبية في السيناريوهات التي تشارك فيها اشتراكًا مع مستخدمين آخرين. في حالة الوصول إلى حد الحصة النسبية لاحقًا في التمرين، هناك احتمال أنك قد تحتاج إلى إنشاء مورد آخر في منطقة مختلفة.
-
-3. أثناء توفير مورد Azure OpenAI، قم بإنشاء **مورد بحث بالذكاء الاصطناعي في Azure** بالإعدادات التالية:
-    - **الاشتراك**: *الاشتراك الذي قمت بتوفير مورد Azure OpenAI فيه*
-    - **مجموعة الموارد**: *مجموعة الموارد التي وفرت مورد Azure OpenAI الخاص بك فيها*
-    - **الاسم الخدمة**: *اسم فريد من اختيارك*
-    - **الموقع**: *المنطقة التي وفرت مورد Azure OpenAI الخاصة بك فيها*
-    - **مستوى التسعير**: أساسي
-4. أثناء توفير مورد بحث الذكاء الاصطناعي في Azure، قم بإنشاء مورد **حساب تخزين** بالإعدادات التالية:
-    - **الاشتراك**: *الاشتراك الذي قمت بتوفير مورد Azure OpenAI فيه*
-    - **مجموعة الموارد**: *مجموعة الموارد التي وفرت مورد Azure OpenAI الخاص بك فيها*
-    - **اسم حساب التخزين**: *اسم فريدمن اختيارك*
-    - **المنطقة**: *المنطقة التي وفرت موارد Azure OpenAI الخاصة بك فيها*
-    - **الخدمة الأساسية**: تخزين Azure الكائن الثنائي كبير الحجم BLOB أوAzure Data Lake Storage Gen 2
-    - **الأداء:** قياسي
-    - **التكرار**: التخزين المتكرر محليًا (LRS)
-5. بعد توزيع جميع الموارد الثلاثة بنجاح في اشتراك Azure، راجعها في بوابة Azure واجمع المعلومات التالية (التي ستحتاج إليها لاحقًا في التدريب):
-    - **نقطة النهاية** و**مفتاح** من مورد Azure OpenAI الذي أنشأته (متوفر في صفحة **المفاتيح ونقطة النهاية** لمورد Azure OpenAI الخاص بك في مدخل Microsoft Azure)
-    - نقطة النهاية لخدمة البحث بالذكاء الاصطناعي في Azure الخاصة بك (قيمة عنوان **URL** في صفحة النظرة العامة لمورد البحث بالذكاء الاصطناعي في Azure في بوابة Azure).
-    - يكون **مفتاح المسؤول الأساسي** لمورد البحث بالذكاء الاصطناعي في Azure (متوفر في صفحة **المفاتيح** لمورد البحث بالذكاء الاصطناعي في Azure في بوابة Azure).
-
-## تحميل بياناتك
-
-ستقوم بإبطال المطالبات التي تستخدمها مع نموذج الذكاء الاصطناعي التوليدي باستخدام بياناتك الخاصة. في هذا التدريب، تتكون البيانات من مجموعة من كتيبات السفر من شركة *Margies Travel* الخيالية.
-
-1. في علامة تبويب مستعرض جديدة، يمكنك تنزيل أرشيف بيانات الكتيب من `https://aka.ms/own-data-brochures`. استخرج الكتيبات إلى مجلد على جهاز الكمبيوتر الخاص بك.
-1. في بوابة Azure، انتقل إلى حساب التخزين الخاص بك، وقم بعرض صفحة **مستعرض التخزين**
-1. حدد **حاويات الكائن الثنائي كبير الحجم** ثم أضف حاوية جديدة باسم `margies-travel`.
-1. حدد حاوية**margies-travel**، ثم قم بتحميل الكتيبات بتنسيق .pdf التي قمت باستخراجها مسبقًا إلى المجلد الجذر لحاوية الكائن الثنائي كبير الحجم.
-
-## توزيع نماذج الذكاء الاصطناعي
-
-ستستخدم نموذجين للذكاء الاصطناعي في هذا التدريب:
-
-- نص يتضمن نموذج *لتحويل* النص في الكتيبات إلى رموز بحيث يمكن فهرسته بكفاءة للاستخدام في المطالبات الأساسية.
-- نموذج GPT الذي يمكن لتطبيقك استخدامه لإنشاء استجابات للمطالبات المستندة إلى بياناتك.
-
-## توزيع النموذج
-
-بعد ذلك، ستقوم بتوزيع نماذج Azure OpenAI من Cloud Shell.
-
-1. استخدم الزر **[\>_]** الموجود على يمين شريط البحث أعلى الصفحة لإنشاء Cloud Shell جديد في بوابة Azure، وتحديد بيئة ***Bash***. يوفّر Cloud Shell واجهة سطر أوامر في جزء أسفل بوابة Azure.
-
-    > **ملاحظة**: إذا كنت قد أنشأت مسبقًا Cloud Shell يستخدم بيئة *PowerShell*، فبدّل إلى ***Bash***.
-
-```dotnetcli
-az cognitiveservices account deployment create \
-   -g <your_resource_group> \
-   -n <your_OpenAI_resource> \
+<div class="markdown-heading" dir="rtl"><h1 tabindex="-1" class="heading-element" dir="rtl">تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI</h1><a id="user-content-تنفيذ-استرداد-الجيل-المعزز-rag-باستخدام-خدمة-azure-openai" class="anchor" aria-label="Permalink: تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI" href="#تنفيذ-استرداد-الجيل-المعزز-rag-باستخدام-خدمة-azure-openai"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="rtl">تمكنك خدمة Azure OpenAI من استخدام بياناتك الخاصة مع ذكاء LLM الأساسي. يمكنك تقييد النموذج لاستخدام بياناتك فقط للمواضيع ذات الصلة، أو مزجها مع النتائج من النموذج المدرب مسبقاً.</p>
+<p dir="rtl">في سيناريو هذا التمرين، ستؤدي دور مطور برامج يعمل لدى Margie's Travel Agency. ستكتشف كيفية استخدام بحث الذكاء الاصطناعي في Azure لفهرسة بياناتك واستخدامها مع Azure OpenAI لزيادة المطالبات.</p>
+<p dir="rtl">سيستغرق هذا التدريب حوالي <strong>30</strong> دقيقة.</p>
+<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">تزويد موارد Azure</h2><a id="user-content-تزويد-موارد-azure" class="anchor" aria-label="Permalink: تزويد موارد Azure" href="#تزويد-موارد-azure"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="rtl">لإكمال هذا التدريب، ستحتاج إلى:</p>
+<ul dir="rtl">
+<li>مورد Azure OpenAI.</li>
+<li>مورد بحث الذكاء الاصطناعي في Azure</li>
+<li>مورد حساب تخزين Azure.</li>
+</ul>
+<ol dir="rtl">
+<li>
+<p dir="rtl">سجّل الدخول إلى <strong>Azure portal</strong> من <code>https://portal.azure.com</code>.</p>
+</li>
+<li>
+<p dir="rtl">إنشاء مورد <strong>Azure OpenAI</strong> بالإعدادات التالية:</p>
+<ul dir="rtl">
+<li><strong>اشتراك</strong>: <em>حدد اشتراك Azure الذي جرت الموافقة عليه للوصول إلى خدمة Azure OpenAI</em></li>
+<li><strong>مجموعة الموارد</strong>: <em>اختيار مجموعة موارد أو إنشاءها</em></li>
+<li><strong>المنطقة</strong>: <em>إجراء اختيار <strong>عشوائي</strong> من أي من المناطق التالية</em>*
+<ul dir="rtl">
+<li>شرق الولايات المتحدة</li>
+<li>East US 2</li>
+<li>وسط شمال الولايات المتحدة</li>
+<li>South Central US</li>
+<li>منطقة السويد الوسطى</li>
+<li>غرب الولايات المتحدة</li>
+<li>غرب الولايات المتحدة الأمريكية 3</li>
+</ul>
+</li>
+<li><strong>الاسم</strong>: <em>اسم فريد من اختيارك</em></li>
+<li><strong>مستوى التسعير</strong>: قياسي S0</li>
+</ul>
+<blockquote>
+<p dir="rtl">* موارد Azure OpenAI مقيدة بالحصص النسبية الإقليمية. تتضمن المناطق المدرجة الحصة النسبية الافتراضية لنوع (أنواع) النموذج المستخدمة في هذا التمرين. يؤدي اختيار منطقة عشوائيًا إلى تقليل مخاطر وصول منطقة واحدة إلى حد الحصة النسبية في السيناريوهات التي تشارك فيها اشتراكًا مع مستخدمين آخرين. في حالة الوصول إلى حد الحصة النسبية لاحقًا في التمرين، هناك احتمال أنك قد تحتاج إلى إنشاء مورد آخر في منطقة مختلفة.</p>
+</blockquote>
+</li>
+<li>
+<p dir="rtl">أثناء توفير مورد Azure OpenAI، قم بإنشاء <strong>مورد بحث بالذكاء الاصطناعي في Azure</strong> بالإعدادات التالية:</p>
+<ul dir="rtl">
+<li><strong>الاشتراك</strong>: <em>الاشتراك الذي قمت بتوفير مورد Azure OpenAI فيه</em></li>
+<li><strong>مجموعة الموارد</strong>: <em>مجموعة الموارد التي وفرت مورد Azure OpenAI الخاص بك فيها</em></li>
+<li><strong>الاسم الخدمة</strong>: <em>اسم فريد من اختيارك</em></li>
+<li><strong>الموقع</strong>: <em>المنطقة التي وفرت مورد Azure OpenAI الخاصة بك فيها</em></li>
+<li><strong>مستوى التسعير</strong>: أساسي</li>
+</ul>
+</li>
+<li>
+<p dir="rtl">أثناء توفير مورد بحث الذكاء الاصطناعي في Azure، قم بإنشاء مورد <strong>حساب تخزين</strong> بالإعدادات التالية:</p>
+<ul dir="rtl">
+<li><strong>الاشتراك</strong>: <em>الاشتراك الذي قمت بتوفير مورد Azure OpenAI فيه</em></li>
+<li><strong>مجموعة الموارد</strong>: <em>مجموعة الموارد التي وفرت مورد Azure OpenAI الخاص بك فيها</em></li>
+<li><strong>اسم حساب التخزين</strong>: <em>اسم فريدمن اختيارك</em></li>
+<li><strong>المنطقة</strong>: <em>المنطقة التي وفرت موارد Azure OpenAI الخاصة بك فيها</em></li>
+<li><strong>الخدمة الأساسية</strong>: تخزين Azure الكائن الثنائي كبير الحجم BLOB أوAzure Data Lake Storage Gen 2</li>
+<li><strong>الأداء:</strong> قياسي</li>
+<li><strong>التكرار</strong>: التخزين المتكرر محليًا (LRS)</li>
+</ul>
+</li>
+<li>
+<p dir="rtl">بعد توزيع جميع الموارد الثلاثة بنجاح في اشتراك Azure، راجعها في بوابة Azure واجمع المعلومات التالية (التي ستحتاج إليها لاحقًا في التدريب):</p>
+<ul dir="rtl">
+<li><strong>نقطة النهاية</strong> و<strong>مفتاح</strong> من مورد Azure OpenAI الذي أنشأته (متوفر في صفحة <strong>المفاتيح ونقطة النهاية</strong> لمورد Azure OpenAI الخاص بك في مدخل Microsoft Azure)</li>
+<li>نقطة النهاية لخدمة البحث بالذكاء الاصطناعي في Azure الخاصة بك (قيمة عنوان <strong>URL</strong> في صفحة النظرة العامة لمورد البحث بالذكاء الاصطناعي في Azure في بوابة Azure).</li>
+<li>يكون <strong>مفتاح المسؤول الأساسي</strong> لمورد البحث بالذكاء الاصطناعي في Azure (متوفر في صفحة <strong>المفاتيح</strong> لمورد البحث بالذكاء الاصطناعي في Azure في بوابة Azure).</li>
+</ul>
+</li>
+</ol>
+<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">تحميل بياناتك</h2><a id="user-content-تحميل-بياناتك" class="anchor" aria-label="Permalink: تحميل بياناتك" href="#تحميل-بياناتك"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="rtl">ستقوم بإبطال المطالبات التي تستخدمها مع نموذج الذكاء الاصطناعي التوليدي باستخدام بياناتك الخاصة. في هذا التدريب، تتكون البيانات من مجموعة من كتيبات السفر من شركة <em>Margies Travel</em> الخيالية.</p>
+<ol dir="rtl">
+<li>في علامة تبويب مستعرض جديدة، يمكنك تنزيل أرشيف بيانات الكتيب من <code>https://aka.ms/own-data-brochures</code>. استخرج الكتيبات إلى مجلد على جهاز الكمبيوتر الخاص بك.</li>
+<li>في بوابة Azure، انتقل إلى حساب التخزين الخاص بك، وقم بعرض صفحة <strong>مستعرض التخزين</strong></li>
+<li>حدد <strong>حاويات الكائن الثنائي كبير الحجم</strong> ثم أضف حاوية جديدة باسم <code>margies-travel</code>.</li>
+<li>حدد حاوية<strong>margies-travel</strong>، ثم قم بتحميل الكتيبات بتنسيق .pdf التي قمت باستخراجها مسبقًا إلى المجلد الجذر لحاوية الكائن الثنائي كبير الحجم.</li>
+</ol>
+<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">توزيع نماذج الذكاء الاصطناعي</h2><a id="user-content-توزيع-نماذج-الذكاء-الاصطناعي" class="anchor" aria-label="Permalink: توزيع نماذج الذكاء الاصطناعي" href="#توزيع-نماذج-الذكاء-الاصطناعي"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="rtl">ستستخدم نموذجين للذكاء الاصطناعي في هذا التدريب:</p>
+<ul dir="rtl">
+<li>نص يتضمن نموذج <em>لتحويل</em> النص في الكتيبات إلى رموز بحيث يمكن فهرسته بكفاءة للاستخدام في المطالبات الأساسية.</li>
+<li>نموذج GPT الذي يمكن لتطبيقك استخدامه لإنشاء استجابات للمطالبات المستندة إلى بياناتك.</li>
+</ul>
+<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">توزيع النموذج</h2><a id="user-content-توزيع-النموذج" class="anchor" aria-label="Permalink: توزيع النموذج" href="#توزيع-النموذج"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="rtl">بعد ذلك، ستقوم بتوزيع نماذج Azure OpenAI من Cloud Shell.</p>
+<ol dir="rtl">
+<li>
+<p dir="rtl">استخدم الزر <strong>[&gt;_]</strong> الموجود على يمين شريط البحث أعلى الصفحة لإنشاء Cloud Shell جديد في بوابة Azure، وتحديد بيئة <em><strong>Bash</strong></em>. يوفّر Cloud Shell واجهة سطر أوامر في جزء أسفل بوابة Azure.</p>
+<blockquote>
+<p dir="rtl"><strong>ملاحظة</strong>: إذا كنت قد أنشأت مسبقًا Cloud Shell يستخدم بيئة <em>PowerShell</em>، فبدّل إلى <em><strong>Bash</strong></em>.</p>
+</blockquote>
+</li>
+</ol>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre lang="dotnetcli" class="notranslate"><code>az cognitiveservices account deployment create \
+   -g &lt;your_resource_group&gt; \
+   -n &lt;your_OpenAI_resource&gt; \
    --deployment-name text-embedding-ada-002 \
    --model-name text-embedding-ada-002 \
    --model-version "2"  \
    --model-format OpenAI \
    --sku-name "Standard" \
    --sku-capacity 5
-```
-
-> **ملاحظة**: يتم قياس سعة Sku بالآلاف من الرموز المميزة في الدقيقة. حد المعدل البالغ 5,000 رمز في الدقيقة يُعد كافيًا تمامًا لإكمال هذا التمرين، مع ترك سعة متاحة لمستخدمين آخرين ضمن نفس الاشتراك.
-
-بعد نشر نموذج تضمين النصوص، أنشئ عملية نشر جديدة لنموذج **gpt-4o** بالإعدادات التالية:
-
-```dotnetcli
-az cognitiveservices account deployment create \
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="az cognitiveservices account deployment create \
    -g <your_resource_group> \
    -n <your_OpenAI_resource> \
+   --deployment-name text-embedding-ada-002 \
+   --model-name text-embedding-ada-002 \
+   --model-version &quot;2&quot;  \
+   --model-format OpenAI \
+   --sku-name &quot;Standard&quot; \
+   --sku-capacity 5" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<blockquote>
+<p dir="rtl"><strong>ملاحظة</strong>: يتم قياس سعة Sku بالآلاف من الرموز المميزة في الدقيقة. حد المعدل البالغ 5,000 رمز في الدقيقة يُعد كافيًا تمامًا لإكمال هذا التمرين، مع ترك سعة متاحة لمستخدمين آخرين ضمن نفس الاشتراك.</p>
+</blockquote>
+<p dir="rtl">بعد نشر نموذج تضمين النصوص، أنشئ عملية نشر جديدة لنموذج <strong>gpt-4o</strong> بالإعدادات التالية:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre lang="dotnetcli" class="notranslate"><code>az cognitiveservices account deployment create \
+   -g &lt;your_resource_group&gt; \
+   -n &lt;your_OpenAI_resource&gt; \
    --deployment-name gpt-4o \
    --model-name gpt-4o \
    --model-version "2024-05-13" \
    --model-format OpenAI \
    --sku-name "Standard" \
    --sku-capacity 5
-```
+</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="az cognitiveservices account deployment create \
+   -g <your_resource_group> \
+   -n <your_OpenAI_resource> \
+   --deployment-name gpt-4o \
+   --model-name gpt-4o \
+   --model-version &quot;2024-05-13&quot; \
+   --model-format OpenAI \
+   --sku-name &quot;Standard&quot; \
+   --sku-capacity 5" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">إنشاء فهرس</h2><a id="user-content-إنشاء-فهرس" class="anchor" aria-label="Permalink: إنشاء فهرس" href="#إنشاء-فهرس"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="rtl">لتسهيل استخدام بياناتك الخاصة في مطالبة، ستقوم بفهرستها باستخدام البحث بالذكاء الاصطناعي في Azure. ستستخدم نموذج تضمين النص لتحويل بيانات النص إلى <em>متجهات</em> (مما يؤدي إلى تمثيل كل رمز مميّز نصي في الفهرس بواسطة متجهات رقمية - مما يجعله متوافقًا مع الطريقة التي يمثل بها نموذج الذكاء الاصطناعي التوليدي النص)</p>
+<ol dir="rtl">
+<li>في بوابة Azure، انتقل إلى مورد البحث بالذكاء الاصطناعي في Azure.</li>
+<li>ثم، في صفحة <strong>نظرة عامة</strong> حدد <strong>استيراد البيانات ثم حوّل البيانات إلى رموز</strong>.</li>
+<li>في صفحة <strong>إعداد اتصال البيانات</strong>، حدد <strong>تخزين الكائن الثنائي كبير الحجم في Azure</strong> وقم بتكوين مصدر البيانات بالإعدادات التالية:
+<ul dir="rtl">
+<li><strong>الاشتراك</strong>: اشتراك Azure الذي قمت بتوفير حساب التخزين الخاص بك فيه.</li>
+<li><strong>حساب تخزين الكائن الثنائي كبير الحجم</strong>: حساب التخزين الذي قمت بإنشائه سابقًا.</li>
+<li><strong>حاوية الكائن الثنائي كبير الحجم</strong>: margies-travel</li>
+<li><strong>مجلد الكائن الثنائي كبير الحجم</strong>: <em>اترك هذا فارغًا</em></li>
+<li><strong>تمكين تعقب الحذف</strong>: إلغاء التحديد</li>
+<li><strong>المصادقة باستخدام الهوية المُدارة</strong>: إلغاء التحديد</li>
+</ul>
+</li>
+<li>في صفحة <strong>تحويل نصك إلى رموز</strong>، حدد الإعدادات التالية:
+<ul dir="rtl">
+<li><strong>النوع</strong>: Azure OpenAI</li>
+<li><strong>الاشتراك</strong>: اشتراك Azure الذي قمت بتوفير خدمة Azure OpenAI الخاصة بك فيه.</li>
+<li><strong>خدمة Azure OpenAI</strong>: مورد خدمة Azure OpenAI الخاصة بك</li>
+<li><strong>توزيع النموذج</strong>: text-embedding-ada-002</li>
+<li><strong>نوع المصادقة</strong>: مفتاح API</li>
+<li><strong>أقر بأن الاتصال بخدمة Azure OpenAI سيتكلف رسومًا إضافية على حسابي</strong>: تحديد</li>
+</ul>
+</li>
+<li>في الصفحة التالية، <strong>لا</strong> تحدد خيار تحويل الصور إلى رموز أو استخراج البيانات باستخدام مهارات الذكاء الاصطناعي.</li>
+<li>في الصفحة التالية، قم بتمكين الترتيب الدلالي وجدولة المفهرس للتشغيل مرة واحدة.</li>
+<li>في الصفحة الأخيرة، قم بتعيين <strong>بادئة اسم الغرض</strong> إلى <code>margies-index</code> ثم قم بإنشاء الفهرس.</li>
+</ol>
+<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">الاستعداد لتطوير تطبيق في تعليمة Visual Studio البرمجية</h2><a id="user-content-الاستعداد-لتطوير-تطبيق-في-تعليمة-visual-studio-البرمجية" class="anchor" aria-label="Permalink: الاستعداد لتطوير تطبيق في تعليمة Visual Studio البرمجية" href="#الاستعداد-لتطوير-تطبيق-في-تعليمة-visual-studio-البرمجية"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="rtl">لنستكشف الآن استخدام بياناتك الخاصة في تطبيق يستخدم SDK لخدمة Azure OpenAI. ستقوم بتطوير تطبيقك باستخدام تعليمة Visual Studio البرمجية. تم توفير ملفات التعليمات البرمجية لتطبيقك في مستودع GitHub.</p>
+<blockquote>
+<p dir="rtl"><strong>تلميح</strong>: إذا نسخت بالفعل مستودع <strong>mslearn-openai</strong>، فافتحه في تعليمة Visual Studio البرمجية. وإلا فاتبع هذه الخطوات لاستنساخه إلى بيئة تطويرك.</p>
+</blockquote>
+<ol dir="rtl">
+<li>
+<p dir="rtl">ابدأ تشغيل Visual Studio Code.</p>
+</li>
+<li>
+<p dir="rtl">افتح لوحة الأوامر (SHIFT+CTRL+P أو <strong>View</strong> &gt; <strong>Command Palette...</strong>)، ثم نفّذ أمر <strong>Git: Clone</strong> لاستنساخ المستودع <code>https://github.com/MicrosoftLearning/mslearn-openai</code> إلى مجلد محلي (لا يهم أي مجلد تختاره).</p>
+</li>
+<li>
+<p dir="rtl">عند استنساخ المستودع، افتح المجلد في Visual Studio Code.</p>
+<blockquote>
+<p dir="rtl"><strong>ملاحظة</strong>: إذا عرضت لك Visual Studio Code رسالة منبثقة لمطالبتك بالثقة في التعليمات البرمجية التي تفتحها، فانقر فوق <strong>نعم، أثق في خيار الكُتاب</strong> في النافذة المنبثقة.</p>
+</blockquote>
+</li>
+<li>
+<p dir="rtl">انتظر حتى تثبيت ملفات إضافية لدعم مشاريع التعليمات البرمجية C# في المستودع.</p>
+<blockquote>
+<p dir="rtl"><strong>ملاحظة</strong>: في حالة مطالبتك بإضافة الأصول المطلوبة للبناء وتصحيح الأخطاء، فحدد <strong>ليس الآن</strong>.</p>
+</blockquote>
+</li>
+</ol>
+<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">تكوين تطبيقك</h2><a id="user-content-تكوين-تطبيقك" class="anchor" aria-label="Permalink: تكوين تطبيقك" href="#تكوين-تطبيقك"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="rtl">التطبيقات لكل من C# وPython متوفرة، ويمتلك كلا التطبيقين الوظيفة نفسها. أولاً، ستكمل بعض الأجزاء الرئيسية من التطبيق لتمكين استخدام مورد Azure OpenAI الخاص بك.</p>
+<ol dir="rtl">
+<li>
+<p dir="rtl">في Visual Studio Code، في جزء <strong>المستكشف</strong>، انتقل إلى المجلد <strong>Labfiles/02-use-own-data</strong> ووسّع نطاق المجلد <strong>CSharp</strong> أو <strong>Python</strong> وفقًا لتفضيلات اللغة الخاصة بك. يحتوي كل مجلد على الملفات الخاصة باللغة للتطبيق الذي ستدمج وظيفة Azure OpenAI فيه.</p>
+</li>
+<li>
+<p dir="rtl">انقر بزر الماوس الأيمن فوق المجلد <strong>CSharp</strong> أو <strong>Python</strong> الذي يحتوي على ملفات التعليمات البرمجية الخاصة بك وافتح محطة طرفية متكاملة. ثم، عليك تثبيت حزمة Azure OpenAI SDK عن طريق تشغيل الأمر المناسب لتفضيل اللغة لديك:</p>
+<p dir="rtl"><strong>C#:</strong></p>
+</li>
+<div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" dir="auto"><pre>dotnet add package Azure.AI.OpenAI <span class="pl-k">--</span>version <span class="pl-c1">2.1</span>.<span class="pl-c1">0</span>
+dotnet add package Azure.Search.Documents <span class="pl-k">--</span>version <span class="pl-c1">11.6</span>.<span class="pl-c1">0</span></pre><div class="zeroclipboard-container">
+ 
+  </div></div>
+<p dir="rtl"><strong>Python</strong>:</p>
+<div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" dir="auto"><pre>pip install openai<span class="pl-k">==</span><span class="pl-c1">1.65</span>.<span class="pl-c1">2</span></pre><div class="zeroclipboard-container">
 
-## إنشاء فهرس
+  </div></div>
+</li>
+<li>
+<p dir="rtl">في جزء <strong>مستكشف</strong>، في مجلد <strong>CSharp</strong> أو <strong>Python</strong>، افتح ملف التكوين للغة المفضلة لديك</p>
+<ul dir="rtl">
+<li><strong>C#</strong>: appsettings.json</li>
+<li><strong>Python</strong>: .env</li>
+</ul>
+</li>
+<li>
+<p dir="rtl">تحديث قيم التكوين لتشمل:</p>
+<ul dir="rtl">
+<li><strong>نقطة النهاية</strong> و<strong>مفتاح</strong> من مورد Azure OpenAI الذي أنشأته (متوفر في صفحة <strong>المفاتيح ونقطة النهاية</strong> لمورد Azure OpenAI الخاص بك في مدخل Microsoft Azure)</li>
+<li>اسم <strong>النشر</strong> الذي حددته لنشر نموذج gpt-4o (يجب أن يكون <code>gpt-4o</code>).</li>
+<li>نقطة النهاية لخدمة البحث الخاصة بك (قيمة عنوان <strong>URL</strong> في صفحة النظرة العامة لمورد البحث الخاص بك في مدخل Azure).</li>
+<li><strong>مفتاح</strong> لمورد البحث لديك (متوفر في صفحة <strong>المفاتيح</strong> لمورد البحث في مدخل Azure - يمكنك استخدام أي من مفاتيح المسؤول)</li>
+<li>اسم فهرس البحث (الذي يجب أن يكون <code>margies-index</code>).</li>
+</ul>
+</li>
+<li>
+<p dir="rtl">احفظ ملف التكوين.</p>
+</li>
+</ol>
+<div class="markdown-heading" dir="rtl"><h3 tabindex="-1" class="heading-element" dir="rtl">أضف تعليمات برمجية لاستخدام خدمة Azure OpenAI</h3><a id="user-content-أضف-تعليمات-برمجية-لاستخدام-خدمة-azure-openai" class="anchor" aria-label="Permalink: أضف تعليمات برمجية لاستخدام خدمة Azure OpenAI" href="#أضف-تعليمات-برمجية-لاستخدام-خدمة-azure-openai"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="rtl">أنت الآن جاهز لاستخدام Azure OpenAI SDK لاستهلاك نموذجك الموزع.</p>
+<ol dir="rtl">
+<li>
+<p dir="rtl">في جزء <strong>Explorer</strong>، داخل مجلد <strong>CSharp</strong> أو <strong>Python</strong>، افتح ملف الشيفرة للغة التي تفضلها، واستبدل التعليق <em><strong>تكوين مصدر بياناناتك</strong></em> باستخدام تعليمة برمجية تُعرّف الفهرس كمصدر بيانات لإكمال المحادثة:</p>
+<p dir="rtl"><strong>C#</strong>: ownData.cs</p>
+</li>
+<div class="highlight highlight-source-cs notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-c">// Configure your data source</span>
+<span class="pl-c">// Extension methods to use data sources with options are subject to SDK surface changes. Suppress the warning to acknowledge this and use the subject-to-change AddDataSource method.</span>
+#pragma warning disable <span class="pl-s1">AOAI001</span>
 
-لتسهيل استخدام بياناتك الخاصة في مطالبة، ستقوم بفهرستها باستخدام البحث بالذكاء الاصطناعي في Azure. ستستخدم نموذج تضمين النص لتحويل بيانات النص إلى *متجهات* (مما يؤدي إلى تمثيل كل رمز مميّز نصي في الفهرس بواسطة متجهات رقمية - مما يجعله متوافقًا مع الطريقة التي يمثل بها نموذج الذكاء الاصطناعي التوليدي النص)
+<span class="pl-smi">ChatCompletionOptions</span> <span class="pl-s1">chatCompletionsOptions</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-smi">ChatCompletionOptions</span><span class="pl-kos">(</span><span class="pl-kos">)</span>
+<span class="pl-kos">{</span>
+    <span class="pl-s1">MaxOutputTokenCount</span> <span class="pl-c1">=</span> <span class="pl-c1">600</span><span class="pl-kos">,</span>
+    <span class="pl-s1">Temperature</span> <span class="pl-c1">=</span> <span class="pl-c1">0.9f</span><span class="pl-kos">,</span>
+<span class="pl-kos">}</span><span class="pl-kos">;</span>
 
-1. في بوابة Azure، انتقل إلى مورد البحث بالذكاء الاصطناعي في Azure.
-1. ثم، في صفحة **نظرة عامة** حدد **استيراد البيانات ثم حوّل البيانات إلى رموز**.
-1. في صفحة **إعداد اتصال البيانات**، حدد **تخزين الكائن الثنائي كبير الحجم في Azure** وقم بتكوين مصدر البيانات بالإعدادات التالية:
-    - **الاشتراك**: اشتراك Azure الذي قمت بتوفير حساب التخزين الخاص بك فيه.
-    - **حساب تخزين الكائن الثنائي كبير الحجم**: حساب التخزين الذي قمت بإنشائه سابقًا.
-    - **حاوية الكائن الثنائي كبير الحجم**: margies-travel
-    - **مجلد الكائن الثنائي كبير الحجم**: *اترك هذا فارغًا*
-    - **تمكين تعقب الحذف**: إلغاء التحديد
-    - **المصادقة باستخدام الهوية المُدارة**: إلغاء التحديد
-1. في صفحة **تحويل نصك إلى رموز**، حدد الإعدادات التالية:
-    - **النوع**: Azure OpenAI
-    - **الاشتراك**: اشتراك Azure الذي قمت بتوفير خدمة Azure OpenAI الخاصة بك فيه.
-    - **خدمة Azure OpenAI**: مورد خدمة Azure OpenAI الخاصة بك
-    - **توزيع النموذج**: text-embedding-ada-002
-    - **نوع المصادقة**: مفتاح API
-    - **أقر بأن الاتصال بخدمة Azure OpenAI سيتكلف رسومًا إضافية على حسابي**: تحديد
-1. في الصفحة التالية، **لا** تحدد خيار تحويل الصور إلى رموز أو استخراج البيانات باستخدام مهارات الذكاء الاصطناعي.
-1. في الصفحة التالية، قم بتمكين الترتيب الدلالي وجدولة المفهرس للتشغيل مرة واحدة.
-1. في الصفحة الأخيرة، قم بتعيين **بادئة اسم الغرض** إلى `margies-index` ثم قم بإنشاء الفهرس.
+<span class="pl-s1">chatCompletionsOptions</span><span class="pl-kos">.</span><span class="pl-en">AddDataSource</span><span class="pl-kos">(</span><span class="pl-k">new</span> <span class="pl-smi">AzureSearchChatDataSource</span><span class="pl-kos">(</span><span class="pl-kos">)</span>
+<span class="pl-kos">{</span>
+    <span class="pl-s1">Endpoint</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-smi">Uri</span><span class="pl-kos">(</span><span class="pl-s1">azureSearchEndpoint</span><span class="pl-kos">)</span><span class="pl-kos">,</span>
+    <span class="pl-s1">IndexName</span> <span class="pl-c1">=</span> <span class="pl-s1">azureSearchIndex</span><span class="pl-kos">,</span>
+    <span class="pl-s1">Authentication</span> <span class="pl-c1">=</span> <span class="pl-s1">DataSourceAuthentication</span><span class="pl-kos">.</span><span class="pl-en">FromApiKey</span><span class="pl-kos">(</span><span class="pl-s1">azureSearchKey</span><span class="pl-kos">)</span><span class="pl-kos">,</span>
+<span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span></pre><div class="zeroclipboard-container">
 
-## الاستعداد لتطوير تطبيق في تعليمة Visual Studio البرمجية
+  </div></div>
+<p dir="rtl"><strong>Python</strong>: ownData.py</p>
+<div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-c"># Configure your data source</span>
+<span class="pl-s1">text</span> <span class="pl-c1">=</span> <span class="pl-en">input</span>(<span class="pl-s">'<span class="pl-cce">\n</span>Enter a question:<span class="pl-cce">\n</span>'</span>)
 
-لنستكشف الآن استخدام بياناتك الخاصة في تطبيق يستخدم SDK لخدمة Azure OpenAI. ستقوم بتطوير تطبيقك باستخدام تعليمة Visual Studio البرمجية. تم توفير ملفات التعليمات البرمجية لتطبيقك في مستودع GitHub.
-
-> **تلميح**: إذا نسخت بالفعل مستودع **mslearn-openai**، فافتحه في تعليمة Visual Studio البرمجية. وإلا فاتبع هذه الخطوات لاستنساخه إلى بيئة تطويرك.
-
-1. ابدأ تشغيل Visual Studio Code.
-2. افتح لوحة الأوامر (SHIFT+CTRL+P أو **View** > **Command Palette...**)، ثم نفّذ أمر **Git: Clone** لاستنساخ المستودع `https://github.com/MicrosoftLearning/mslearn-openai` إلى مجلد محلي (لا يهم أي مجلد تختاره).
-3. عند استنساخ المستودع، افتح المجلد في Visual Studio Code.
-
-    > **ملاحظة**: إذا عرضت لك Visual Studio Code رسالة منبثقة لمطالبتك بالثقة في التعليمات البرمجية التي تفتحها، فانقر فوق **نعم، أثق في خيار الكُتاب** في النافذة المنبثقة.
-
-4. انتظر حتى تثبيت ملفات إضافية لدعم مشاريع التعليمات البرمجية C# في المستودع.
-
-    > **ملاحظة**: في حالة مطالبتك بإضافة الأصول المطلوبة للبناء وتصحيح الأخطاء، فحدد **ليس الآن**.
-
-## تكوين تطبيقك
-
-التطبيقات لكل من C# وPython متوفرة، ويمتلك كلا التطبيقين الوظيفة نفسها. أولاً، ستكمل بعض الأجزاء الرئيسية من التطبيق لتمكين استخدام مورد Azure OpenAI الخاص بك.
-
-1. في Visual Studio Code، في جزء **المستكشف**، انتقل إلى المجلد **Labfiles/02-use-own-data** ووسّع نطاق المجلد **CSharp** أو **Python** وفقًا لتفضيلات اللغة الخاصة بك. يحتوي كل مجلد على الملفات الخاصة باللغة للتطبيق الذي ستدمج وظيفة Azure OpenAI فيه.
-2. انقر بزر الماوس الأيمن فوق المجلد **CSharp** أو **Python** الذي يحتوي على ملفات التعليمات البرمجية الخاصة بك وافتح محطة طرفية متكاملة. ثم، عليك تثبيت حزمة Azure OpenAI SDK عن طريق تشغيل الأمر المناسب لتفضيل اللغة لديك:
-
-    **C#:**
-
-    ```powershell
-    dotnet add package Azure.AI.OpenAI --version 2.1.0
-    dotnet add package Azure.Search.Documents --version 11.6.0
-    ```
-
-    **Python**:
-
-    ```powershell
-    pip install openai==1.65.2
-    ```
-
-3. في جزء **مستكشف**، في مجلد **CSharp** أو **Python**، افتح ملف التكوين للغة المفضلة لديك
-
-    - **C#**: appsettings.json
-    - **Python**: .env
-
-4. تحديث قيم التكوين لتشمل:
-    - **نقطة النهاية** و**مفتاح** من مورد Azure OpenAI الذي أنشأته (متوفر في صفحة **المفاتيح ونقطة النهاية** لمورد Azure OpenAI الخاص بك في مدخل Microsoft Azure)
-    - اسم **النشر** الذي حددته لنشر نموذج gpt-4o (يجب أن يكون `gpt-4o`).
-    - نقطة النهاية لخدمة البحث الخاصة بك (قيمة عنوان **URL** في صفحة النظرة العامة لمورد البحث الخاص بك في مدخل Azure).
-    - **مفتاح** لمورد البحث لديك (متوفر في صفحة **المفاتيح** لمورد البحث في مدخل Azure - يمكنك استخدام أي من مفاتيح المسؤول)
-    - اسم فهرس البحث (الذي يجب أن يكون `margies-index`).
-5. احفظ ملف التكوين.
-
-### أضف تعليمات برمجية لاستخدام خدمة Azure OpenAI
-
-أنت الآن جاهز لاستخدام Azure OpenAI SDK لاستهلاك نموذجك الموزع.
-
-1. في جزء **Explorer**، داخل مجلد **CSharp** أو **Python**، افتح ملف الشيفرة للغة التي تفضلها، واستبدل التعليق ***تكوين مصدر بياناناتك*** باستخدام تعليمة برمجية تُعرّف الفهرس كمصدر بيانات لإكمال المحادثة:
-
-    **C#**: ownData.cs
-
-    ```csharp
-    // Configure your data source
-    // Extension methods to use data sources with options are subject to SDK surface changes. Suppress the warning to acknowledge this and use the subject-to-change AddDataSource method.
-    #pragma warning disable AOAI001
-    
-    ChatCompletionOptions chatCompletionsOptions = new ChatCompletionOptions()
-    {
-        MaxOutputTokenCount = 600,
-        Temperature = 0.9f,
-    };
-    
-    chatCompletionsOptions.AddDataSource(new AzureSearchChatDataSource()
-    {
-        Endpoint = new Uri(azureSearchEndpoint),
-        IndexName = azureSearchIndex,
-        Authentication = DataSourceAuthentication.FromApiKey(azureSearchKey),
-    });
-    ```
-
-    **Python**: ownData.py
-
-    ```python
-    # Configure your data source
-    text = input('\nEnter a question:\n')
-    
-    completion = client.chat.completions.create(
-        model=deployment,
-        messages=[
+<span class="pl-s1">completion</span> <span class="pl-c1">=</span> <span class="pl-s1">client</span>.<span class="pl-c1">chat</span>.<span class="pl-c1">completions</span>.<span class="pl-c1">create</span>(
+    <span class="pl-s1">model</span><span class="pl-c1">=</span><span class="pl-s1">deployment</span>,
+    <span class="pl-s1">messages</span><span class="pl-c1">=</span>[
+        {
+            <span class="pl-s">"role"</span>: <span class="pl-s">"user"</span>,
+            <span class="pl-s">"content"</span>: <span class="pl-s1">text</span>,
+        },
+    ],
+    <span class="pl-s1">extra_body</span><span class="pl-c1">=</span>{
+        <span class="pl-s">"data_sources"</span>:[
             {
-                "role": "user",
-                "content": text,
-            },
-        ],
-        extra_body={
-            "data_sources":[
-                {
-                    "type": "azure_search",
-                    "parameters": {
-                        "endpoint": os.environ["AZURE_SEARCH_ENDPOINT"],
-                        "index_name": os.environ["AZURE_SEARCH_INDEX"],
-                        "authentication": {
-                            "type": "api_key",
-                            "key": os.environ["AZURE_SEARCH_KEY"],
-                        }
+                <span class="pl-s">"type"</span>: <span class="pl-s">"azure_search"</span>,
+                <span class="pl-s">"parameters"</span>: {
+                    <span class="pl-s">"endpoint"</span>: <span class="pl-s1">os</span>.<span class="pl-c1">environ</span>[<span class="pl-s">"AZURE_SEARCH_ENDPOINT"</span>],
+                    <span class="pl-s">"index_name"</span>: <span class="pl-s1">os</span>.<span class="pl-c1">environ</span>[<span class="pl-s">"AZURE_SEARCH_INDEX"</span>],
+                    <span class="pl-s">"authentication"</span>: {
+                        <span class="pl-s">"type"</span>: <span class="pl-s">"api_key"</span>,
+                        <span class="pl-s">"key"</span>: <span class="pl-s1">os</span>.<span class="pl-c1">environ</span>[<span class="pl-s">"AZURE_SEARCH_KEY"</span>],
                     }
                 }
-            ],
-        }
-    )
-    ```
-
-1. احفظ التغييرات في ملف التعليمة البرمجية.
-
-## تشغيل التطبيق الخاص بك
-
-الآن بعد أن نجح تكوين التطبيق الخاص بك، عليك تشغيله لإرسال طلبك إلى النموذج الخاص بك ومراقبة الاستجابة. ستلاحظ أن الفرق الوحيد بين الخيارات المختلفة هو محتوى المطالبة، وتظل جميع المعلمات الأخرى (مثل عدد الرموز المميزة ودرجة الحرارة) كما هي لكل طلب.
-
-1. في جزء الوحدة الطرفية التفاعلية، تأكد من أن سياق المجلد هو المجلد الخاص باللغة المفضلة لديك. ثم أدخل الأمر التالي لتشغيل التطبيق.
-
-    - **C#:** `dotnet run`
-    - **Python**: `python ownData.py`
-
-    > **تلميح**: يمكنك استخدام أيقونة **تكبير حجم اللوحة** (**^**) في شريط أدوات المحطة الطرفية لرؤية المزيد من نص وحدة التحكم.
-
-2. راجع الاستجابة إلى المطالبة `Tell me about London`، والتي يجب أن تتضمن إجابة بالإضافة إلى بعض التفاصيل عن البيانات المستخدمة لفصل المطالبة، والتي جرى الحصول عليها من خدمة البحث الخاصة بك.
-
-    > **تلميح**: إذا أردت رؤية الاقتباسات من فهرس البحث، فعليك تعيين اقتباسات إظهار المتغير ***بالقرب*** من أعلى ملف التعليمات البرمجية على **صحيح**.
-
-## تنظيف
-
-عند الانتهاء من مورد Azure OpenAI، تذكر أن تقوم بحذف المورد بأكمله في **بوابة Azure** على `https://portal.azure.com`. تأكد أيضاً من تضمين حساب التخزين ومورد البحث، حيث يمكن أن يؤدي ذلك إلى تكلفة كبيرة نسبياً.
+            }
+        ],
+    }
+)</pre><div class="zeroclipboard-container">
+ 
+  </div></div>
+</li>
+<li>
+<p dir="rtl">احفظ التغييرات في ملف التعليمة البرمجية.</p>
+</li>
+</ol>
+<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">تشغيل التطبيق الخاص بك</h2><a id="user-content-تشغيل-التطبيق-الخاص-بك" class="anchor" aria-label="Permalink: تشغيل التطبيق الخاص بك" href="#تشغيل-التطبيق-الخاص-بك"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="rtl">الآن بعد أن نجح تكوين التطبيق الخاص بك، عليك تشغيله لإرسال طلبك إلى النموذج الخاص بك ومراقبة الاستجابة. ستلاحظ أن الفرق الوحيد بين الخيارات المختلفة هو محتوى المطالبة، وتظل جميع المعلمات الأخرى (مثل عدد الرموز المميزة ودرجة الحرارة) كما هي لكل طلب.</p>
+<ol dir="rtl">
+<li>
+<p dir="rtl">في جزء الوحدة الطرفية التفاعلية، تأكد من أن سياق المجلد هو المجلد الخاص باللغة المفضلة لديك. ثم أدخل الأمر التالي لتشغيل التطبيق.</p>
+<ul dir="rtl">
+<li><strong>C#:</strong> <code>dotnet run</code></li>
+<li><strong>Python</strong>: <code>python ownData.py</code></li>
+</ul>
+<blockquote>
+<p dir="rtl"><strong>تلميح</strong>: يمكنك استخدام أيقونة <strong>تكبير حجم اللوحة</strong> (<strong>^</strong>) في شريط أدوات المحطة الطرفية لرؤية المزيد من نص وحدة التحكم.</p>
+</blockquote>
+</li>
+<li>
+<p dir="rtl">راجع الاستجابة إلى المطالبة <code>Tell me about London</code>، والتي يجب أن تتضمن إجابة بالإضافة إلى بعض التفاصيل عن البيانات المستخدمة لفصل المطالبة، والتي جرى الحصول عليها من خدمة البحث الخاصة بك.</p>
+<blockquote>
+<p dir="rtl"><strong>تلميح</strong>: إذا أردت رؤية الاقتباسات من فهرس البحث، فعليك تعيين اقتباسات إظهار المتغير <em><strong>بالقرب</strong></em> من أعلى ملف التعليمات البرمجية على <strong>صحيح</strong>.</p>
+</blockquote>
+</li>
+</ol>
+<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">تنظيف</h2><a id="user-content-تنظيف" class="anchor" aria-label="Permalink: تنظيف" href="#تنظيف"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<p dir="rtl">عند الانتهاء من مورد Azure OpenAI، تذكر أن تقوم بحذف المورد بأكمله في <strong>بوابة Azure</strong> على <code>https://portal.azure.com</code>. تأكد أيضاً من تضمين حساب التخزين ومورد البحث، حيث يمكن أن يؤدي ذلك إلى تكلفة كبيرة نسبياً.</p>
+</article></div>
