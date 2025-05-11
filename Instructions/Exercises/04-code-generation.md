@@ -187,12 +187,12 @@ def multiply(a, b):
 </li>
 <li>
 <p dir="rtl">انقر بزر الماوس الأيمن فوق المجلد <strong>CSharp</strong> أو <strong>Python</strong> الذي يحتوي على ملفات التعليمات البرمجية الخاصة بك وافتح وحدة طرفية متكاملة. ثم، عليك تثبيت حزمة Azure OpenAI SDK عن طريق تشغيل الأمر المناسب لتفضيل اللغة لديك:</p>
-<p dir="rtl"><strong>C#:</strong></p>
+<p dir="rtl"><strong>:#C</strong></p>
 </li>
 <div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" dir="auto"><pre>dotnet add package Azure.AI.OpenAI <span class="pl-k">--</span>version <span class="pl-c1">2.1</span>.<span class="pl-c1">0</span></pre><div class="zeroclipboard-container">
 
   </div></div>
-<p dir="rtl"><strong>Python</strong>:</p>
+<p dir="rtl">:<strong>Python</strong></p>
 <div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" dir="auto"><pre>pip install openai<span class="pl-k">==</span><span class="pl-c1">1.65</span>.<span class="pl-c1">2</span></pre><div class="zeroclipboard-container">
  
   </div></div>

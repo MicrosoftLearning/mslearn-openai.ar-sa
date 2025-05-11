@@ -120,7 +120,7 @@
 <p dir="rtl">الآن بعد أن راجعت التعليمات البرمجية، فقد حان الوقت لتشغيلها وإنشاء بعض الصور.</p>
 <ol dir="rtl">
     <li>انقر بزر الماوس الأيمن فوق المجلد <b>CSharp</b> أو <b>Python</b> الذي يحتوي على ملفات التعليمات البرمجية الخاصة بك وافتح محطة طرفية متكاملة. ثم أدخل الأمر المناسب لتشغيل التطبيق لديك:</li>
-    <b>C#</b>
+    <b>#C</b>
     <div dir="rtl">
     <div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>dotnet run</code></pre><div class="zeroclipboard-container">
     <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="dotnet run" tabindex="0" role="button">

@@ -138,7 +138,7 @@
     <blockquote>*الحد الأقصى لمعدل 5000 رمز مميز في الدقيقة هو أكثر من كاف لإكمال هذا التمرين مع ترك سعة للأشخاص الآخرين الذين يستخدمون نفس الاشتراك.</blockquote>
 </ol>
 <div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">إنشاء فهرس</h2><a id="user-content-إنشاء-فهرس" class="anchor" aria-label="Permalink: إنشاء فهرس" href="#إنشاء-فهرس"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
-<p dir="rtl">لتسهيل استخدام بياناتك الخاصة في مطالبة، ستقوم بفهرستها باستخدام البحث بالذكاء الاصطناعي في Azure. ستستخدم نموذج تضمين النص الذي نشرته سابقًا أثناء عملية الفهرسة لتحويل البيانات النصية إلى <i>متجهات<i> (مما يؤدي إلى تمثيل كل رمز مميّز نصي في الفهرس بواسطة متجهات رقمية - مما يجعله متوافقًا مع الطريقة التي يمثل بها نموذج الذكاء الاصطناعي التوليدي النص)</i></i></p><i><i>
+<p dir="rtl">لتسهيل استخدام بياناتك الخاصة في مطالبة، ستقوم بفهرستها باستخدام البحث بالذكاء الاصطناعي في Azure. ستستخدم نموذج تضمين النص الذي نشرته سابقًا أثناء عملية الفهرسة لتحويل البيانات النصية إلى <i>متجهات<i> (مما يؤدي إلى تمثيل كل رمز مميّز نصي في الفهرس بواسطة متجهات رقمية - مما يجعله متوافقًا مع الطريقة التي يمثل بها نموذج الذكاء الاصطناعي التوليدي النص)</i></i></p>
 <ol dir="rtl">
     <li>في بوابة Azure، انتقل إلى مورد البحث بالذكاء الاصطناعي في Azure.</li>
     <li>ثم، في صفحة <b>نظرة عامة</b> حدد <b>استيراد البيانات ثم حوّل البيانات إلى رموز</b>.</li>
@@ -186,7 +186,7 @@
 <ol dir="rtl">
     <li> في تعليمة Visual Studio البرمجية في جزء <b>المستكشف</b>، انتقِل إلى المجلد <b>Labfiles/06-use-own-data</b> وعليك توسيع المجلد <b>CSharp</b> أو <b>Python</b> حسب تفضيل اللغة لديك. يحتوي كل مجلد على الملفات الخاصة باللغة للتطبيق الذي ستدمج وظيفة Azure OpenAI فيه.</li>
     <li>انقر بزر الماوس الأيمن فوق المجلد <b>CSharp</b> أو <b>Python</b> الذي يحتوي على ملفات التعليمات البرمجية الخاصة بك وافتح محطة طرفية متكاملة. ثم، عليك تثبيت حزمة Azure OpenAI SDK عن طريق تشغيل الأمر المناسب لتفضيل اللغة لديك:</li>
-    <b>C#:</b>
+    <b>:#C</b>
     <div dir="rtl">
     <div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>dotnet add package Azure.AI.OpenAI --version 1.0.0-beta.14</code></pre><div class="zeroclipboard-container">
     <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="dotnet add package Azure.AI.OpenAI --version 1.0.0-beta.14" tabindex="0" role="button">
@@ -199,7 +199,7 @@
     </clipboard-copy>
   </div></div>
     </div>
-    <b>Python</b>:
+    <b>:Python</b>
     <div dir="rtl">
     <div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>pip install openai==1.55.3</code></pre><div class="zeroclipboard-container">
     <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="pip install openai==1.55.3" tabindex="0" role="button">
@@ -312,4 +312,4 @@ extension_config = dict(dataSources = [
 </ol>
 <div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">تنظيف</h2><a id="user-content-تنظيف" class="anchor" aria-label="Permalink: تنظيف" href="#تنظيف"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
 <p dir="rtl">عند الانتهاء من مورد Azure OpenAI، تذكر أن تقوم بحذف المورد بأكمله في <b>بوابة Azure</b> على <code><a href="https://portal.azure.com" rel="nofollow">https://portal.azure.com</a></code>. تأكد أيضاً من تضمين حساب التخزين ومورد البحث، حيث يمكن أن يؤدي ذلك إلى تكلفة كبيرة نسبياً.</p>
-</i></i></article></div>
+</article></div>

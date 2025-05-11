@@ -1,4 +1,4 @@
-<div class="Box-sc-g0xbh4-0 eoaCFS js-snippet-clipboard-copy-unpositioned undefined" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><div dir="rtl"><markdown-accessiblity-table data-catalyst=""><table>
+<div class="Box-sc-g0xbh4-0 eoaCFS js-snippet-clipboard-copy-unpositioned undefined" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><div dir="auto"><div dir="rtl"><markdown-accessiblity-table data-catalyst=""><table>
   <thead>
   <tr>
   <th>lab</th>
@@ -24,12 +24,11 @@
   </tr>
   </tbody>
 </table></markdown-accessiblity-table>
-
-<div class="markdown-heading" dir="rtl"><h1 tabindex="-1" class="heading-element" dir="rtl">تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI</h1><a id="user-content-تنفيذ-استرداد-الجيل-المعزز-rag-باستخدام-خدمة-azure-openai" class="anchor" aria-label="Permalink: تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI" href="#تنفيذ-استرداد-الجيل-المعزز-rag-باستخدام-خدمة-azure-openai"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="rtl"><div class="markdown-heading" dir="auto"><h1 tabindex="-1" dir="rtl" class="heading-element">تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI</h1><a id="user-content-تنفيذ-استرداد-الجيل-المعزز-rag-باستخدام-خدمة-azure-openai" class="anchor" aria-label="Permalink: تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI" href="#تنفيذ-استرداد-الجيل-المعزز-rag-باستخدام-خدمة-azure-openai"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div><a id="user-content-تنفيذ-استرداد-الجيل-المعزز-rag-باستخدام-خدمة-azure-openai" aria-label="Permalink: تنفيذ استرداد الجيل المعزز (RAG) باستخدام خدمة Azure OpenAI" href="#تنفيذ-استرداد-الجيل-المعزز-rag-باستخدام-خدمة-azure-openai"></a></div>
 <p dir="rtl">تمكنك خدمة Azure OpenAI من استخدام بياناتك الخاصة مع ذكاء LLM الأساسي. يمكنك تقييد النموذج لاستخدام بياناتك فقط للمواضيع ذات الصلة، أو مزجها مع النتائج من النموذج المدرب مسبقاً.</p>
 <p dir="rtl">في سيناريو هذا التمرين، ستؤدي دور مطور برامج يعمل لدى Margie's Travel Agency. ستكتشف كيفية استخدام بحث الذكاء الاصطناعي في Azure لفهرسة بياناتك واستخدامها مع Azure OpenAI لزيادة المطالبات.</p>
 <p dir="rtl">سيستغرق هذا التدريب حوالي <strong>30</strong> دقيقة.</p>
-<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">تزويد موارد Azure</h2><a id="user-content-تزويد-موارد-azure" class="anchor" aria-label="Permalink: تزويد موارد Azure" href="#تزويد-موارد-azure"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="rtl"><div class="markdown-heading" dir="auto"><h2 tabindex="-1" dir="rtl" class="heading-element">تزويد موارد Azure</h2><a id="user-content-تزويد-موارد-azure" class="anchor" aria-label="Permalink: تزويد موارد Azure" href="#تزويد-موارد-azure"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div><a id="user-content-تزويد-موارد-azure" aria-label="Permalink: تزويد موارد Azure" href="#تزويد-موارد-azure"></a></div>
 <p dir="rtl">لإكمال هذا التدريب، ستحتاج إلى:</p>
 <ul dir="rtl">
 <li>مورد Azure OpenAI.</li>
@@ -94,7 +93,7 @@
 </ul>
 </li>
 </ol>
-<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">تحميل بياناتك</h2><a id="user-content-تحميل-بياناتك" class="anchor" aria-label="Permalink: تحميل بياناتك" href="#تحميل-بياناتك"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="rtl"><div class="markdown-heading" dir="auto"><h2 tabindex="-1" dir="rtl" class="heading-element">تحميل بياناتك</h2><a id="user-content-تحميل-بياناتك" class="anchor" aria-label="Permalink: تحميل بياناتك" href="#تحميل-بياناتك"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div><a id="user-content-تحميل-بياناتك" aria-label="Permalink: تحميل بياناتك" href="#تحميل-بياناتك"></a></div>
 <p dir="rtl">ستقوم بإبطال المطالبات التي تستخدمها مع نموذج الذكاء الاصطناعي التوليدي باستخدام بياناتك الخاصة. في هذا التدريب، تتكون البيانات من مجموعة من كتيبات السفر من شركة <em>Margies Travel</em> الخيالية.</p>
 <ol dir="rtl">
 <li>في علامة تبويب مستعرض جديدة، يمكنك تنزيل أرشيف بيانات الكتيب من <code>https://aka.ms/own-data-brochures</code>. استخرج الكتيبات إلى مجلد على جهاز الكمبيوتر الخاص بك.</li>
@@ -102,13 +101,13 @@
 <li>حدد <strong>حاويات الكائن الثنائي كبير الحجم</strong> ثم أضف حاوية جديدة باسم <code>margies-travel</code>.</li>
 <li>حدد حاوية<strong>margies-travel</strong>، ثم قم بتحميل الكتيبات بتنسيق .pdf التي قمت باستخراجها مسبقًا إلى المجلد الجذر لحاوية الكائن الثنائي كبير الحجم.</li>
 </ol>
-<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">توزيع نماذج الذكاء الاصطناعي</h2><a id="user-content-توزيع-نماذج-الذكاء-الاصطناعي" class="anchor" aria-label="Permalink: توزيع نماذج الذكاء الاصطناعي" href="#توزيع-نماذج-الذكاء-الاصطناعي"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="rtl"><div class="markdown-heading" dir="auto"><h2 tabindex="-1" dir="rtl" class="heading-element">توزيع نماذج الذكاء الاصطناعي</h2><a id="user-content-توزيع-نماذج-الذكاء-الاصطناعي" class="anchor" aria-label="Permalink: توزيع نماذج الذكاء الاصطناعي" href="#توزيع-نماذج-الذكاء-الاصطناعي"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div><a id="user-content-توزيع-نماذج-الذكاء-الاصطناعي" aria-label="Permalink: توزيع نماذج الذكاء الاصطناعي" href="#توزيع-نماذج-الذكاء-الاصطناعي"></a></div>
 <p dir="rtl">ستستخدم نموذجين للذكاء الاصطناعي في هذا التدريب:</p>
 <ul dir="rtl">
 <li>نص يتضمن نموذج <em>لتحويل</em> النص في الكتيبات إلى رموز بحيث يمكن فهرسته بكفاءة للاستخدام في المطالبات الأساسية.</li>
 <li>نموذج GPT الذي يمكن لتطبيقك استخدامه لإنشاء استجابات للمطالبات المستندة إلى بياناتك.</li>
 </ul>
-<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">توزيع النموذج</h2><a id="user-content-توزيع-النموذج" class="anchor" aria-label="Permalink: توزيع النموذج" href="#توزيع-النموذج"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="rtl"><div class="markdown-heading" dir="auto"><h2 tabindex="-1" dir="rtl" class="heading-element">توزيع النموذج</h2><a id="user-content-توزيع-النموذج" class="anchor" aria-label="Permalink: توزيع النموذج" href="#توزيع-النموذج"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div><a id="user-content-توزيع-النموذج" aria-label="Permalink: توزيع النموذج" href="#توزيع-النموذج"></a></div>
 <p dir="rtl">بعد ذلك، ستقوم بتوزيع نماذج Azure OpenAI من Cloud Shell.</p>
 <ol dir="rtl">
 <li>
@@ -118,7 +117,7 @@
 </blockquote>
 </li>
 </ol>
-<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre lang="dotnetcli" class="notranslate"><code>az cognitiveservices account deployment create \
+<div dir="auto"><div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre lang="dotnetcli" class="notranslate"><code>az cognitiveservices account deployment create \
    -g &lt;your_resource_group&gt; \
    -n &lt;your_OpenAI_resource&gt; \
    --deployment-name text-embedding-ada-002 \
@@ -144,12 +143,21 @@
     <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
 </svg>
     </clipboard-copy>
+  </div></div><div dir="auto">
+    
+      
+    
+
+      
+    
+
+    
   </div></div>
 <blockquote>
 <p dir="rtl"><strong>ملاحظة</strong>: يتم قياس سعة Sku بالآلاف من الرموز المميزة في الدقيقة. حد المعدل البالغ 5,000 رمز في الدقيقة يُعد كافيًا تمامًا لإكمال هذا التمرين، مع ترك سعة متاحة لمستخدمين آخرين ضمن نفس الاشتراك.</p>
 </blockquote>
 <p dir="rtl">بعد نشر نموذج تضمين النصوص، أنشئ عملية نشر جديدة لنموذج <strong>gpt-4o</strong> بالإعدادات التالية:</p>
-<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre lang="dotnetcli" class="notranslate"><code>az cognitiveservices account deployment create \
+<div dir="auto"><div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre lang="dotnetcli" class="notranslate"><code>az cognitiveservices account deployment create \
    -g &lt;your_resource_group&gt; \
    -n &lt;your_OpenAI_resource&gt; \
    --deployment-name gpt-4o \
@@ -175,8 +183,17 @@
     <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
 </svg>
     </clipboard-copy>
+  </div></div><div dir="auto">
+    
+      
+    
+
+      
+    
+
+    
   </div></div>
-<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">إنشاء فهرس</h2><a id="user-content-إنشاء-فهرس" class="anchor" aria-label="Permalink: إنشاء فهرس" href="#إنشاء-فهرس"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="rtl"><div class="markdown-heading" dir="auto"><h2 tabindex="-1" dir="rtl" class="heading-element">إنشاء فهرس</h2><a id="user-content-إنشاء-فهرس" class="anchor" aria-label="Permalink: إنشاء فهرس" href="#إنشاء-فهرس"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div><a id="user-content-إنشاء-فهرس" aria-label="Permalink: إنشاء فهرس" href="#إنشاء-فهرس"></a></div>
 <p dir="rtl">لتسهيل استخدام بياناتك الخاصة في مطالبة، ستقوم بفهرستها باستخدام البحث بالذكاء الاصطناعي في Azure. ستستخدم نموذج تضمين النص لتحويل بيانات النص إلى <em>متجهات</em> (مما يؤدي إلى تمثيل كل رمز مميّز نصي في الفهرس بواسطة متجهات رقمية - مما يجعله متوافقًا مع الطريقة التي يمثل بها نموذج الذكاء الاصطناعي التوليدي النص)</p>
 <ol dir="rtl">
 <li>في بوابة Azure، انتقل إلى مورد البحث بالذكاء الاصطناعي في Azure.</li>
@@ -205,7 +222,7 @@
 <li>في الصفحة التالية، قم بتمكين الترتيب الدلالي وجدولة المفهرس للتشغيل مرة واحدة.</li>
 <li>في الصفحة الأخيرة، قم بتعيين <strong>بادئة اسم الغرض</strong> إلى <code>margies-index</code> ثم قم بإنشاء الفهرس.</li>
 </ol>
-<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">الاستعداد لتطوير تطبيق في تعليمة Visual Studio البرمجية</h2><a id="user-content-الاستعداد-لتطوير-تطبيق-في-تعليمة-visual-studio-البرمجية" class="anchor" aria-label="Permalink: الاستعداد لتطوير تطبيق في تعليمة Visual Studio البرمجية" href="#الاستعداد-لتطوير-تطبيق-في-تعليمة-visual-studio-البرمجية"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="rtl"><div class="markdown-heading" dir="auto"><h2 tabindex="-1" dir="rtl" class="heading-element">الاستعداد لتطوير تطبيق في تعليمة Visual Studio البرمجية</h2><a id="user-content-الاستعداد-لتطوير-تطبيق-في-تعليمة-visual-studio-البرمجية" class="anchor" aria-label="Permalink: الاستعداد لتطوير تطبيق في تعليمة Visual Studio البرمجية" href="#الاستعداد-لتطوير-تطبيق-في-تعليمة-visual-studio-البرمجية"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div><a id="user-content-الاستعداد-لتطوير-تطبيق-في-تعليمة-visual-studio-البرمجية" aria-label="Permalink: الاستعداد لتطوير تطبيق في تعليمة Visual Studio البرمجية" href="#الاستعداد-لتطوير-تطبيق-في-تعليمة-visual-studio-البرمجية"></a></div>
 <p dir="rtl">لنستكشف الآن استخدام بياناتك الخاصة في تطبيق يستخدم SDK لخدمة Azure OpenAI. ستقوم بتطوير تطبيقك باستخدام تعليمة Visual Studio البرمجية. تم توفير ملفات التعليمات البرمجية لتطبيقك في مستودع GitHub.</p>
 <blockquote>
 <p dir="rtl"><strong>تلميح</strong>: إذا نسخت بالفعل مستودع <strong>mslearn-openai</strong>، فافتحه في تعليمة Visual Studio البرمجية. وإلا فاتبع هذه الخطوات لاستنساخه إلى بيئة تطويرك.</p>
@@ -230,7 +247,7 @@
 </blockquote>
 </li>
 </ol>
-<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">تكوين تطبيقك</h2><a id="user-content-تكوين-تطبيقك" class="anchor" aria-label="Permalink: تكوين تطبيقك" href="#تكوين-تطبيقك"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="rtl"><div class="markdown-heading" dir="auto"><h2 tabindex="-1" dir="rtl" class="heading-element">تكوين تطبيقك</h2><a id="user-content-تكوين-تطبيقك" class="anchor" aria-label="Permalink: تكوين تطبيقك" href="#تكوين-تطبيقك"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div><a id="user-content-تكوين-تطبيقك" aria-label="Permalink: تكوين تطبيقك" href="#تكوين-تطبيقك"></a></div>
 <p dir="rtl">التطبيقات لكل من C# وPython متوفرة، ويمتلك كلا التطبيقين الوظيفة نفسها. أولاً، ستكمل بعض الأجزاء الرئيسية من التطبيق لتمكين استخدام مورد Azure OpenAI الخاص بك.</p>
 <ol dir="rtl">
 <li>
@@ -238,17 +255,15 @@
 </li>
 <li>
 <p dir="rtl">انقر بزر الماوس الأيمن فوق المجلد <strong>CSharp</strong> أو <strong>Python</strong> الذي يحتوي على ملفات التعليمات البرمجية الخاصة بك وافتح محطة طرفية متكاملة. ثم، عليك تثبيت حزمة Azure OpenAI SDK عن طريق تشغيل الأمر المناسب لتفضيل اللغة لديك:</p>
-<p dir="rtl"><strong>C#:</strong></p>
+<p dir="auto"><strong>C#:</strong></p>
 </li>
-<div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" dir="auto"><pre>dotnet add package Azure.AI.OpenAI <span class="pl-k">--</span>version <span class="pl-c1">2.1</span>.<span class="pl-c1">0</span>
-dotnet add package Azure.Search.Documents <span class="pl-k">--</span>version <span class="pl-c1">11.6</span>.<span class="pl-c1">0</span></pre><div class="zeroclipboard-container">
- 
+<div dir="auto"><pre>dotnet add package Azure.AI.OpenAI <span>--</span>version <span>2.1</span>.<span>0</span>
+dotnet add package Azure.Search.Documents <span>--</span>version <span>11.6</span>.<span>0</span></pre><div dir="auto">
   </div></div>
-<p dir="rtl"><strong>Python</strong>:</p>
-<div class="highlight highlight-source-powershell notranslate position-relative overflow-auto" dir="auto"><pre>pip install openai<span class="pl-k">==</span><span class="pl-c1">1.65</span>.<span class="pl-c1">2</span></pre><div class="zeroclipboard-container">
+<p dir="rtl">:<strong>Python</strong></p>
+<div dir="auto"><pre>pip install openai<span>==</span><span>1.65</span>.<span>2</span></pre><div dir="auto">
+  </div></div>
 
-  </div></div>
-</li>
 <li>
 <p dir="rtl">في جزء <strong>مستكشف</strong>، في مجلد <strong>CSharp</strong> أو <strong>Python</strong>، افتح ملف التكوين للغة المفضلة لديك</p>
 <ul dir="rtl">
@@ -270,67 +285,62 @@ dotnet add package Azure.Search.Documents <span class="pl-k">--</span>version <s
 <p dir="rtl">احفظ ملف التكوين.</p>
 </li>
 </ol>
-<div class="markdown-heading" dir="rtl"><h3 tabindex="-1" class="heading-element" dir="rtl">أضف تعليمات برمجية لاستخدام خدمة Azure OpenAI</h3><a id="user-content-أضف-تعليمات-برمجية-لاستخدام-خدمة-azure-openai" class="anchor" aria-label="Permalink: أضف تعليمات برمجية لاستخدام خدمة Azure OpenAI" href="#أضف-تعليمات-برمجية-لاستخدام-خدمة-azure-openai"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="rtl"><div class="markdown-heading" dir="auto"><h3 tabindex="-1" dir="rtl" class="heading-element">أضف تعليمات برمجية لاستخدام خدمة Azure OpenAI</h3><a id="user-content-أضف-تعليمات-برمجية-لاستخدام-خدمة-azure-openai" class="anchor" aria-label="Permalink: أضف تعليمات برمجية لاستخدام خدمة Azure OpenAI" href="#أضف-تعليمات-برمجية-لاستخدام-خدمة-azure-openai"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div><a id="user-content-أضف-تعليمات-برمجية-لاستخدام-خدمة-azure-openai" aria-label="Permalink: أضف تعليمات برمجية لاستخدام خدمة Azure OpenAI" href="#أضف-تعليمات-برمجية-لاستخدام-خدمة-azure-openai"></a></div>
 <p dir="rtl">أنت الآن جاهز لاستخدام Azure OpenAI SDK لاستهلاك نموذجك الموزع.</p>
 <ol dir="rtl">
 <li>
 <p dir="rtl">في جزء <strong>Explorer</strong>، داخل مجلد <strong>CSharp</strong> أو <strong>Python</strong>، افتح ملف الشيفرة للغة التي تفضلها، واستبدل التعليق <em><strong>تكوين مصدر بياناناتك</strong></em> باستخدام تعليمة برمجية تُعرّف الفهرس كمصدر بيانات لإكمال المحادثة:</p>
 <p dir="rtl"><strong>C#</strong>: ownData.cs</p>
 </li>
-<div class="highlight highlight-source-cs notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-c">// Configure your data source</span>
-<span class="pl-c">// Extension methods to use data sources with options are subject to SDK surface changes. Suppress the warning to acknowledge this and use the subject-to-change AddDataSource method.</span>
-#pragma warning disable <span class="pl-s1">AOAI001</span>
-
-<span class="pl-smi">ChatCompletionOptions</span> <span class="pl-s1">chatCompletionsOptions</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-smi">ChatCompletionOptions</span><span class="pl-kos">(</span><span class="pl-kos">)</span>
-<span class="pl-kos">{</span>
-    <span class="pl-s1">MaxOutputTokenCount</span> <span class="pl-c1">=</span> <span class="pl-c1">600</span><span class="pl-kos">,</span>
-    <span class="pl-s1">Temperature</span> <span class="pl-c1">=</span> <span class="pl-c1">0.9f</span><span class="pl-kos">,</span>
-<span class="pl-kos">}</span><span class="pl-kos">;</span>
-
-<span class="pl-s1">chatCompletionsOptions</span><span class="pl-kos">.</span><span class="pl-en">AddDataSource</span><span class="pl-kos">(</span><span class="pl-k">new</span> <span class="pl-smi">AzureSearchChatDataSource</span><span class="pl-kos">(</span><span class="pl-kos">)</span>
-<span class="pl-kos">{</span>
-    <span class="pl-s1">Endpoint</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-smi">Uri</span><span class="pl-kos">(</span><span class="pl-s1">azureSearchEndpoint</span><span class="pl-kos">)</span><span class="pl-kos">,</span>
-    <span class="pl-s1">IndexName</span> <span class="pl-c1">=</span> <span class="pl-s1">azureSearchIndex</span><span class="pl-kos">,</span>
-    <span class="pl-s1">Authentication</span> <span class="pl-c1">=</span> <span class="pl-s1">DataSourceAuthentication</span><span class="pl-kos">.</span><span class="pl-en">FromApiKey</span><span class="pl-kos">(</span><span class="pl-s1">azureSearchKey</span><span class="pl-kos">)</span><span class="pl-kos">,</span>
-<span class="pl-kos">}</span><span class="pl-kos">)</span><span class="pl-kos">;</span></pre><div class="zeroclipboard-container">
-
+<div dir="auto"><pre><span>// Configure your data source</span>
+<span>// Extension methods to use data sources with options are subject to SDK surface changes. Suppress the warning to acknowledge this and use the subject-to-change AddDataSource method.</span>
+#pragma warning disable <span>AOAI001</span>
+<p dir="auto"><span>ChatCompletionOptions</span> <span>chatCompletionsOptions</span> <span>=</span> <span>new</span> <span>ChatCompletionOptions</span><span>(</span><span>)</span>
+<span>{</span>
+<span>MaxOutputTokenCount</span> <span>=</span> <span>600</span><span>,</span>
+<span>Temperature</span> <span>=</span> <span>0.9f</span><span>,</span>
+<span>}</span><span>;</span></p>
+<p dir="auto"><span>chatCompletionsOptions</span><span>.</span><span>AddDataSource</span><span>(</span><span>new</span> <span>AzureSearchChatDataSource</span><span>(</span><span>)</span>
+<span>{</span>
+<span>Endpoint</span> <span>=</span> <span>new</span> <span>Uri</span><span>(</span><span>azureSearchEndpoint</span><span>)</span><span>,</span>
+<span>IndexName</span> <span>=</span> <span>azureSearchIndex</span><span>,</span>
+<span>Authentication</span> <span>=</span> <span>DataSourceAuthentication</span><span>.</span><span>FromApiKey</span><span>(</span><span>azureSearchKey</span><span>)</span><span>,</span>
+<span>}</span><span>)</span><span>;</span></p></pre><div dir="auto"><p dir="auto"></p>
   </div></div>
 <p dir="rtl"><strong>Python</strong>: ownData.py</p>
-<div class="highlight highlight-source-python notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-c"># Configure your data source</span>
-<span class="pl-s1">text</span> <span class="pl-c1">=</span> <span class="pl-en">input</span>(<span class="pl-s">'<span class="pl-cce">\n</span>Enter a question:<span class="pl-cce">\n</span>'</span>)
-
-<span class="pl-s1">completion</span> <span class="pl-c1">=</span> <span class="pl-s1">client</span>.<span class="pl-c1">chat</span>.<span class="pl-c1">completions</span>.<span class="pl-c1">create</span>(
-    <span class="pl-s1">model</span><span class="pl-c1">=</span><span class="pl-s1">deployment</span>,
-    <span class="pl-s1">messages</span><span class="pl-c1">=</span>[
-        {
-            <span class="pl-s">"role"</span>: <span class="pl-s">"user"</span>,
-            <span class="pl-s">"content"</span>: <span class="pl-s1">text</span>,
-        },
-    ],
-    <span class="pl-s1">extra_body</span><span class="pl-c1">=</span>{
-        <span class="pl-s">"data_sources"</span>:[
-            {
-                <span class="pl-s">"type"</span>: <span class="pl-s">"azure_search"</span>,
-                <span class="pl-s">"parameters"</span>: {
-                    <span class="pl-s">"endpoint"</span>: <span class="pl-s1">os</span>.<span class="pl-c1">environ</span>[<span class="pl-s">"AZURE_SEARCH_ENDPOINT"</span>],
-                    <span class="pl-s">"index_name"</span>: <span class="pl-s1">os</span>.<span class="pl-c1">environ</span>[<span class="pl-s">"AZURE_SEARCH_INDEX"</span>],
-                    <span class="pl-s">"authentication"</span>: {
-                        <span class="pl-s">"type"</span>: <span class="pl-s">"api_key"</span>,
-                        <span class="pl-s">"key"</span>: <span class="pl-s1">os</span>.<span class="pl-c1">environ</span>[<span class="pl-s">"AZURE_SEARCH_KEY"</span>],
-                    }
-                }
-            }
-        ],
-    }
-)</pre><div class="zeroclipboard-container">
- 
+<div dir="auto"><pre><span># Configure your data source</span>
+<span>text</span> <span>=</span> <span>input</span>(<span>'<span>\n</span>Enter a question:<span>\n</span>'</span>)
+<p dir="auto"><span>completion</span> <span>=</span> <span>client</span>.<span>chat</span>.<span>completions</span>.<span>create</span>(
+<span>model</span><span>=</span><span>deployment</span>,
+<span>messages</span><span>=</span>[
+{
+<span>"role"</span>: <span>"user"</span>,
+<span>"content"</span>: <span>text</span>,
+},
+],
+<span>extra_body</span><span>=</span>{
+<span>"data_sources"</span>:[
+{
+<span>"type"</span>: <span>"azure_search"</span>,
+<span>"parameters"</span>: {
+<span>"endpoint"</span>: <span>os</span>.<span>environ</span>[<span>"AZURE_SEARCH_ENDPOINT"</span>],
+<span>"index_name"</span>: <span>os</span>.<span>environ</span>[<span>"AZURE_SEARCH_INDEX"</span>],
+<span>"authentication"</span>: {
+<span>"type"</span>: <span>"api_key"</span>,
+<span>"key"</span>: <span>os</span>.<span>environ</span>[<span>"AZURE_SEARCH_KEY"</span>],
+}
+}
+}
+],
+}
+)</p></pre><div dir="auto"><p dir="auto"></p>
   </div></div>
-</li>
+
 <li>
 <p dir="rtl">احفظ التغييرات في ملف التعليمة البرمجية.</p>
 </li>
 </ol>
-<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">تشغيل التطبيق الخاص بك</h2><a id="user-content-تشغيل-التطبيق-الخاص-بك" class="anchor" aria-label="Permalink: تشغيل التطبيق الخاص بك" href="#تشغيل-التطبيق-الخاص-بك"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="rtl"><div class="markdown-heading" dir="auto"><h2 tabindex="-1" dir="rtl" class="heading-element">تشغيل التطبيق الخاص بك</h2><a id="user-content-تشغيل-التطبيق-الخاص-بك" class="anchor" aria-label="Permalink: تشغيل التطبيق الخاص بك" href="#تشغيل-التطبيق-الخاص-بك"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div><a id="user-content-تشغيل-التطبيق-الخاص-بك" aria-label="Permalink: تشغيل التطبيق الخاص بك" href="#تشغيل-التطبيق-الخاص-بك"></a></div>
 <p dir="rtl">الآن بعد أن نجح تكوين التطبيق الخاص بك، عليك تشغيله لإرسال طلبك إلى النموذج الخاص بك ومراقبة الاستجابة. ستلاحظ أن الفرق الوحيد بين الخيارات المختلفة هو محتوى المطالبة، وتظل جميع المعلمات الأخرى (مثل عدد الرموز المميزة ودرجة الحرارة) كما هي لكل طلب.</p>
 <ol dir="rtl">
 <li>
@@ -350,6 +360,7 @@ dotnet add package Azure.Search.Documents <span class="pl-k">--</span>version <s
 </blockquote>
 </li>
 </ol>
-<div class="markdown-heading" dir="rtl"><h2 tabindex="-1" class="heading-element" dir="rtl">تنظيف</h2><a id="user-content-تنظيف" class="anchor" aria-label="Permalink: تنظيف" href="#تنظيف"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="rtl"><div class="markdown-heading" dir="auto"><h2 tabindex="-1" dir="rtl" class="heading-element">تنظيف</h2><a id="user-content-تنظيف" class="anchor" aria-label="Permalink: تنظيف" href="#تنظيف"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div><a id="user-content-تنظيف" aria-label="Permalink: تنظيف" href="#تنظيف"></a></div>
 <p dir="rtl">عند الانتهاء من مورد Azure OpenAI، تذكر أن تقوم بحذف المورد بأكمله في <strong>بوابة Azure</strong> على <code>https://portal.azure.com</code>. تأكد أيضاً من تضمين حساب التخزين ومورد البحث، حيث يمكن أن يؤدي ذلك إلى تكلفة كبيرة نسبياً.</p>
+</div></div>
 </article></div>
